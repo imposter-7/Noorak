@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
             title: "kitchen",
             image: "kitchen",
             onToggle: () => print("kitchen"),
-            roomColor: Colors.pink,
+            roomColor: Color.fromARGB(123, 167, 96, 73),
           ),
           Room(
             title: "livingroom",
