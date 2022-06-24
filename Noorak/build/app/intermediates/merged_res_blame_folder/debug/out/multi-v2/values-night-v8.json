@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\halaf\\OneDrive\\Desktop\\4th-year\\GP2\\Noorak\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\4th-year\\GP2\\Noorak\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

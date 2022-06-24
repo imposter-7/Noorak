@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lastversion/Home.dart';
 import 'package:lastversion/bottomnavbar.dart';
+import 'package:lastversion/screens/reusable_widgets.dart';
 
 import 'Firsthome.dart';
 import 'classes/language.dart';
@@ -14,6 +17,9 @@ class Register extends StatefulWidget {
 }
 
 class _Register extends State<Register> {
+  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _userNameTextController = TextEditingController();
   // to check if text visible or not for password
   bool _isobsecure = true;
   //for checkbox value
@@ -103,161 +109,192 @@ class _Register extends State<Register> {
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 80),
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 70, 63, 63),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Email',
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(211, 221, 215, 215)),
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 10, left: 5),
-                            child: Icon(
-                              Icons.email,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 70, 63, 63),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: TextField(
-                        obscureText: _isobsecure,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Password',
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(211, 221, 215, 215)),
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child: Icon(
-                              Icons.lock,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                          suffixIcon: Padding(
-                            padding: EdgeInsets.only(right: 10, left: 5),
-                            child: IconButton(
-                                // ignore: unnecessary_new
-                                icon: new Icon(Icons.remove_red_eye,
-                                    color: Colors.white, size: 30),
-                                onPressed: () {
-                                  setState(() {
-                                    _isobsecure = !_isobsecure;
-                                  });
-                                }),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 70, 63, 63),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: TextField(
-                        obscureText: _isobsecure,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Confirm Password',
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(211, 221, 215, 215)),
-                          contentPadding: EdgeInsets.only(left: 40, top: 15),
-                          suffixIcon: Padding(
-                            padding: EdgeInsets.only(right: 10, left: 5),
-                            child: IconButton(
-                                // ignore: unnecessary_new
-                                icon: new Icon(Icons.remove_red_eye,
-                                    color: Colors.white, size: 30),
-                                onPressed: () {
-                                  setState(() {
-                                    _isobsecure = !_isobsecure;
-                                  });
-                                }),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top:12),
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                      children:[
-                        Checkbox(
+                    // SizedBox(height: 80),
+                    const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField("Enter UserName", Icons.person_outline, false,
+                    _userNameTextController),
+                const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField("Enter Email Id", Icons.person_outline, false,
+                    _emailTextController),
+                const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField("Enter Password", Icons.lock_outlined, true,
+                    _passwordTextController),
+                const SizedBox(
+                  height: 20,
+                ),
+                firebaseUIButton(context, "Sign Up", () {
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text)
+                      .then((value) {
+                    print("Created New Account");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
+                })
+                    // Container(
+                    //   width: 300,
+                    //   decoration: BoxDecoration(
+                    //     color: Color.fromARGB(255, 70, 63, 63),
+                    //     borderRadius: BorderRadius.circular(16),
+                    //   ),
+                    //   child: TextField(
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       hintText: 'Email',
+                    //       hintStyle: TextStyle(
+                    //           color: Color.fromARGB(211, 221, 215, 215)),
+                    //       prefixIcon: Padding(
+                    //         padding: EdgeInsets.only(right: 10, left: 5),
+                    //         child: Icon(
+                    //           Icons.email,
+                    //           color: Colors.white,
+                    //           size: 30,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: 300,
+                    //   decoration: BoxDecoration(
+                    //     color: Color.fromARGB(255, 70, 63, 63),
+                    //     borderRadius: BorderRadius.circular(16),
+                    //   ),
+                    //   child: TextField(
+                    //     obscureText: _isobsecure,
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       hintText: 'Password',
+                    //       hintStyle: TextStyle(
+                    //           color: Color.fromARGB(211, 221, 215, 215)),
+                    //       prefixIcon: Padding(
+                    //         padding: EdgeInsets.only(right: 10),
+                    //         child: Icon(
+                    //           Icons.lock,
+                    //           color: Colors.white,
+                    //           size: 30,
+                    //         ),
+                    //       ),
+                    //       suffixIcon: Padding(
+                    //         padding: EdgeInsets.only(right: 10, left: 5),
+                    //         child: IconButton(
+                    //             // ignore: unnecessary_new
+                    //             icon: new Icon(Icons.remove_red_eye,
+                    //                 color: Colors.white, size: 30),
+                    //             onPressed: () {
+                    //               setState(() {
+                    //                 _isobsecure = !_isobsecure;
+                    //               });
+                    //             }),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: 300,
+                    //   decoration: BoxDecoration(
+                    //     color: Color.fromARGB(255, 70, 63, 63),
+                    //     borderRadius: BorderRadius.circular(16),
+                    //   ),
+                    //   child: TextField(
+                    //     obscureText: _isobsecure,
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       hintText: 'Confirm Password',
+                    //       hintStyle: TextStyle(
+                    //           color: Color.fromARGB(211, 221, 215, 215)),
+                    //       contentPadding: EdgeInsets.only(left: 40, top: 15),
+                    //       suffixIcon: Padding(
+                    //         padding: EdgeInsets.only(right: 10, left: 5),
+                    //         child: IconButton(
+                    //             // ignore: unnecessary_new
+                    //             icon: new Icon(Icons.remove_red_eye,
+                    //                 color: Colors.white, size: 30),
+                    //             onPressed: () {
+                    //               setState(() {
+                    //                 _isobsecure = !_isobsecure;
+                    //               });
+                    //             }),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Container(
+                    //   margin: EdgeInsets.only(top:12),
+                    //   child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    //   children:[
+                    //     Checkbox(
 
-                          value: isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value!;
-                             /*  if(isChecked!=true)
-                              {
+                    //       value: isChecked,
+                    //       onChanged: (bool? value) {
+                    //         setState(() {
+                    //           isChecked = value!;
+                    //          /*  if(isChecked!=true)
+                    //           {
 
-                              } */
-                            });
-                          }),
-                          Container(
-                            margin: EdgeInsets.only(left:4),
-                            child: Text(
-                              "I agree to the Terms & Privecy Ploicy  ",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height:10),
+                    //           } */
+                    //         });
+                    //       }),
+                    //       Container(
+                    //         margin: EdgeInsets.only(left:4),
+                    //         child: Text(
+                    //           "I agree to the Terms & Privecy Ploicy  ",
+                    //           style: TextStyle(
+                    //             color: Colors.white,
+                    //             fontSize: 13,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       SizedBox(height:10),
                           
-                      ],
-                    ),
-                    ),
+                    //   ],
+                    // ),
+                    // ),
                   ],
                 ),
-                Padding(
-                    padding: EdgeInsets.only( left:1),
-                    child: ElevatedButton(
-                      onPressed: () {
-                           Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => FirstHome()));
-                      },
-                      // ignore: sort_child_properties_last
-                      child: Text("Register",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.grey[600]?.withOpacity(0.5),
-                          padding: EdgeInsets.symmetric(horizontal: 50),
-                          shape: RoundedRectangleBorder(
+                // Padding(
+                //     padding: EdgeInsets.only( left:1),
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //            Navigator.of(context).push(
+                //       MaterialPageRoute(builder: (context) => FirstHome()));
+                //       },
+                //       // ignore: sort_child_properties_last
+                //       child: Text("Register",
+                //           style: TextStyle(
+                //               fontSize: 15,
+                //               color: Colors.white)),
+                //       style: ElevatedButton.styleFrom(
+                //           primary: Colors.grey[600]?.withOpacity(0.5),
+                //           padding: EdgeInsets.symmetric(horizontal: 50),
+                //           shape: RoundedRectangleBorder(
                             
-                              borderRadius: BorderRadius.circular(20)
+                //               borderRadius: BorderRadius.circular(20)
                               
                               
-                              ),
-                              side: BorderSide(width:1,color:Color.fromRGBO(173, 71, 131, 1),
-                              )
+                //               ),
+                //               side: BorderSide(width:1,color:Color.fromRGBO(173, 71, 131, 1),
+                //               )
                               
-                              ),
-                    ),
-                  ),
+                //               ),
+                //     ),
+                //   ),
               ],
             ),
           ],
