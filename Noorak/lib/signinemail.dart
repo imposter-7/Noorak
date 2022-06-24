@@ -20,17 +20,23 @@ class _Signinmail extends State<Signinmail> {
   bool _isobsecure = true;
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+  final formKey= GlobalKey<FormState>();
+  String errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: Container( 
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
          decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/0f3acc71f18597a61afe31e049795f73.jpg"),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(Colors.white10, BlendMode.lighten)),
         ),
-
+      child:Form(
+        key: formKey,
         child: SingleChildScrollView(
           padding: EdgeInsets.all(25),
           reverse: true,
@@ -47,6 +53,7 @@ class _Signinmail extends State<Signinmail> {
                       child: Text(
                         'NOORAK ',
                         style: TextStyle(
+                          letterSpacing: 0.0099,
                           color: Colors.white,
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
@@ -79,34 +86,192 @@ class _Signinmail extends State<Signinmail> {
                      SizedBox(
                   height: 100,
                 ),
-                reusableTextField("Enter Username", Icons.person_outline, false,
-                    _emailTextController),
+
+
+                //-----------Email Controller---------------
+
+                // reusableTextField("Email", Icons.person_outline, false,
+                //     _emailTextController),
+
+                 TextFormField(
+                  controller: _emailTextController,
+                  validator:(value){
+                        if(value!.isEmpty){
+                          return 'Email is required!';
+                          
+                          }
+                        else if(!RegExp(r'^[a-z0-9]+@[a-z]+\.[a-z]{2,4}$').hasMatch(value!)){
+                           return 'Enter correct email';
+                        }
+                        else{
+                          return null;
+                        }
+                      },
+                  obscureText: false,
+                  enableSuggestions: true,
+                  autocorrect: true,
+                  cursorColor: Color.fromARGB(255, 249, 247, 247),
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person_outline,
+                      color: Color.fromARGB(179, 255, 255, 255),
+                    ),
+                    
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
+                    filled: true,
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    fillColor: Colors.black.withOpacity(0.7),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
+                  ),
+                  keyboardType: false
+                      ? TextInputType.visiblePassword
+                      : TextInputType.emailAddress,
+                ),
+
+                //------------------------------------------
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Password", Icons.lock_outline, true,
-                    _passwordTextController),
+
+                //-----------Password Controller---------------
+
+                // reusableTextField("Password..", Icons.lock_outline, true,
+                //     _passwordTextController),
+
+              TextFormField(
+                  controller: _passwordTextController,
+                  validator:(value){
+                        if(value!.isEmpty ){
+                          errorMessage=' ';
+                          return 'Password is required!';
+                        }
+                        else if (RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$').hasMatch(value!)){
+                           return 'invalid password';
+                        }
+                        else{
+                          return null;
+                        }
+                      },
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  cursorColor: Color.fromARGB(255, 249, 247, 247),
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person_outline,
+                      color: Color.fromARGB(179, 255, 255, 255),
+                    ),
+                    
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
+                    filled: true,
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    fillColor: Colors.black.withOpacity(0.7),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
+                  ),
+                  keyboardType: true
+                      ? TextInputType.visiblePassword
+                      : TextInputType.emailAddress,
+                ),
+                Text(
+                      errorMessage,
+                      style: const TextStyle(
+                          color: Color.fromARGB(221, 250, 9, 9), fontWeight: FontWeight.normal, fontSize: 16),
+                    ),
+                //----------------------------------------------
                 const SizedBox(
                   height: 5,
                 ),
+
                 forgetPassword(context),
-                firebaseUIButton(context, "Sign In", () {
-                  FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
-                }),
+
+                //----------------Sign in Button----------------
+
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      // if the validation is correct, the user can be signed in 
+                      if(formKey.currentState!.validate()){
+                        try{
+                          errorMessage='';
+                          await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                                    email: _emailTextController.text,
+                                    password: _passwordTextController.text)
+                                .then((value) {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => HomePage()));
+                            });
+                            
+                        }
+                        
+                        on FirebaseAuthException catch(error){
+                            errorMessage = error.message!;
+                        }
+
+
+                        // FirebaseAuth.instance
+                        // .signInWithEmailAndPassword(
+                        //             email: _emailTextController.text,
+                        //             password: _passwordTextController.text)
+                        //         .then((value) {
+                        //       Navigator.push(context,
+                        //           MaterialPageRoute(builder: (context) => HomePage()));
+                        //     }).onError((error, stackTrace) {
+                        //        if (error == 'auth/wrong-password') {
+                        //           // return 'Wrong password.' ;
+                        //         }
+                        //       print("Error ${error.toString()}");
+                        //     });
+                      }
+                    },
+                    child: Text(
+                      "Sign in",
+                      style: const TextStyle(
+                          color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return Colors.black26;
+                          }
+                          return Colors.white;
+                        }),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+                  ),
+                ),
+
+                // firebaseUIButton(context, "Sign In", () {
+                //   FirebaseAuth.instance
+                //       .signInWithEmailAndPassword(
+                //           email: _emailTextController.text,
+                //           password: _passwordTextController.text)
+                //       .then((value) {
+                //     Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => HomePage()));
+                //   }).onError((error, stackTrace) {
+                //     print("Error ${error.toString()}");
+                //   });
+                // }),
+
                 signUpOption()
               ],
             ),
           ),
         ),
+      )
         // child: Stack(
         //   children: [
         //     Column(
