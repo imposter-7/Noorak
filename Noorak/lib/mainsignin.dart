@@ -21,11 +21,13 @@ class _Signin extends State<Signin> {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      
        extendBodyBehindAppBar: true,
       appBar: AppBar(
+        
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title:Text("NOORAK ",style: TextStyle(color:Colors.white,fontSize: 25,fontWeight: FontWeight.bold),
+        title:Text("NOORAK ",style: TextStyle(color:Colors.white,fontSize: 35,fontWeight: FontWeight.bold),
         
         ),
         centerTitle: true,
@@ -80,9 +82,9 @@ class _Signin extends State<Signin> {
                       ),
                     )), */
                 SizedBox(
-                  height: 260,
+                  height: 235,
                 ),
-                Padding(padding: EdgeInsets.only(right:105),
+                Padding(padding: EdgeInsets.only(right:200),
                 child: Text(
                         "Control ",
                         textAlign: TextAlign.center,
@@ -93,13 +95,13 @@ class _Signin extends State<Signin> {
                         ),
                       ),
                 ),
-                 Padding(padding: EdgeInsets.only(right:105),
+                 Padding(padding: EdgeInsets.only(right:150),
                 child: Text(
                         "AnyWhere ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 35,
+                          fontSize: 38,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -112,14 +114,14 @@ SizedBox(height: 136),
                          Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Signinmail())); 
                       },
-                      child: Text("Signin with Email",
+                      child: Text("Sign in with Email",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white)),
                               style: ElevatedButton.styleFrom(
-                        
-                          primary: Color.fromARGB(255, 126, 94, 118).withOpacity(0.7),
-                          padding: EdgeInsets.symmetric(horizontal: 100,vertical: 6),
+                                
+                          primary: Color.fromARGB(255, 61, 35, 88).withOpacity(0.7),
+                          padding: EdgeInsets.symmetric(horizontal: 115,vertical: 15),
                           shape: RoundedRectangleBorder(
                             
                               borderRadius: BorderRadius.circular(20),
@@ -127,7 +129,7 @@ SizedBox(height: 136),
                               
                               
                               ),
-                              side: BorderSide(width:1,color:Color.fromARGB(255, 90, 62, 128).withOpacity(0),
+                              side: BorderSide(width:1,color:Color.fromARGB(255, 89, 58, 133).withOpacity(0),
                               )
                               
                               ),
@@ -136,7 +138,7 @@ SizedBox(height: 136),
                   SizedBox(height: 20),
                   Row(
               children: <Widget>[
-Padding(
+                Padding(
                     padding: EdgeInsets.only( left:35),
                     child: ElevatedButton(
                       onPressed: () {},
@@ -147,7 +149,7 @@ Padding(
                               style: ElevatedButton.styleFrom(
                         
                           primary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          padding: EdgeInsets.symmetric(horizontal: 50,vertical: 12),
                           shape: RoundedRectangleBorder(
                             
                               borderRadius: BorderRadius.circular(20)
@@ -170,7 +172,7 @@ Padding(
                               style: ElevatedButton.styleFrom(
                         
                           primary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          padding: EdgeInsets.symmetric(horizontal: 50,vertical: 12),
                           shape: RoundedRectangleBorder(
                             
                               borderRadius: BorderRadius.circular(20)
@@ -186,9 +188,9 @@ Padding(
              
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 20,),
             Text("By Continuing you agree to the Terms and Conditions",
-            style: TextStyle(color: Colors.black,fontSize: 10),),
+            style: TextStyle(color: Color.fromARGB(255, 255, 250, 250),fontSize: 14,fontWeight: FontWeight.normal),),
               ],
             ),
           ],

@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lastversion/Home.dart';
+import 'package:lastversion/classes/language.dart';
 import 'package:lastversion/register.dart';
 import 'package:lastversion/screens/reset_password.dart';
 import 'package:lastversion/screens/reusable_widgets.dart';
@@ -26,6 +27,40 @@ class _Signinmail extends State<Signinmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        
+        backgroundColor: Color.fromARGB(233, 22, 3, 3),
+        elevation: 0,
+        title:Text("NOORAK ",style: TextStyle(color:Colors.white,fontSize: 35,fontWeight: FontWeight.bold),
+        
+        ),
+        centerTitle: true,
+          actions: <Widget>[
+
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: DropdownButton(
+              underline: SizedBox(),
+              icon: Icon(
+                Icons.language_rounded,
+                color: Colors.white,
+              ),
+              items: Language.langugelist()
+                  .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
+                        value: lang,
+                        child: Row(children: <Widget>[
+                          Text(lang.flag),
+                          Text(lang.name),
+                        ]),
+                      ))
+                  .toList(),
+              onChanged: (Language? language) {
+                // _changeLanguage(language!);
+              },
+            ),
+          ),
+        ],
+      ),
       body: Container( 
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -38,7 +73,7 @@ class _Signinmail extends State<Signinmail> {
       child:Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(25),
+          padding: EdgeInsets.all(15),
           reverse: true,
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -46,23 +81,23 @@ class _Signinmail extends State<Signinmail> {
             child: Column(
               children: <Widget>[
                
-                SizedBox(
-                    // height: 110,
+                // SizedBox(
+                //     // height: 110,
 
-                    child: const Center(
-                      child: Text(
-                        'NOORAK ',
-                        style: TextStyle(
-                          letterSpacing: 0.0099,
-                          color: Colors.white,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )),
+                //     child: const Center(
+                //       child: Text(
+                //         'NOORAK ',
+                //         style: TextStyle(
+                //           letterSpacing: 0.0099,
+                //           color: Colors.white,
+                //           fontSize: 35,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     )),
 
                      SizedBox(
-                      height: 110,
+                      height: 90,
                     ),
                     
                     Text(
@@ -163,7 +198,7 @@ class _Signinmail extends State<Signinmail> {
                   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
                   decoration: InputDecoration(
                     prefixIcon: Icon(
-                      Icons.person_outline,
+                      Icons.lock_outline,
                       color: Color.fromARGB(179, 255, 255, 255),
                     ),
                     
