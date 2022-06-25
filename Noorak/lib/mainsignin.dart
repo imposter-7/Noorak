@@ -115,7 +115,7 @@ class _Signin extends State<Signin> {
                 ),
                  Padding(padding: EdgeInsets.only(right:150),
                 child: Text(
-                        "AnyWhere ",
+                        "Anywhere ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -131,7 +131,7 @@ class _Signin extends State<Signin> {
                         ),
                       ),
                 ),
-SizedBox(height: 136),
+          SizedBox(height: 136),
                 Padding(
                     padding: EdgeInsets.only( left:1),
                     child: ElevatedButton(

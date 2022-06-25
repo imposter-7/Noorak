@@ -199,6 +199,7 @@ class _Signinmail extends State<Signinmail> {
 
               TextFormField(
                   controller: _passwordTextController,
+
                   validator:(value){
                         if(value!.isEmpty ){
                           errorMessage=' ';
@@ -211,6 +212,7 @@ class _Signinmail extends State<Signinmail> {
                           return null;
                         }
                       },
+                  
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -241,9 +243,9 @@ class _Signinmail extends State<Signinmail> {
                           color: Color.fromARGB(221, 250, 9, 9), fontWeight: FontWeight.normal, fontSize: 16),
                     ),
                 //----------------------------------------------
-                const SizedBox(
-                  height: 5,
-                ),
+                // const SizedBox(
+                //   // height: 5,
+                // ),
 
                 forgetPassword(context),
 
@@ -259,14 +261,15 @@ class _Signinmail extends State<Signinmail> {
                       // if the validation is correct, the user can be signed in 
                       if(formKey.currentState!.validate()){
                         try{
+                          formKey.currentState?.save();
                           errorMessage='';
                           await FirebaseAuth.instance
                         .signInWithEmailAndPassword(
-                                    email: _emailTextController.text,
-                                    password: _passwordTextController.text)
+                                    email: _emailTextController.text.trim(),
+                                    password: _passwordTextController.text.trim())
                                 .then((value) {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => HomePage()));
+                                  MaterialPageRoute(builder: (context) => FirstHome()));
                             });
                             
                         }
