@@ -90,7 +90,7 @@ class _Register extends State<Register> {
       child:Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(25),
+          padding: EdgeInsets.all(8.0),
           reverse: true,
           child: Padding(
             padding: EdgeInsets.fromLTRB(
