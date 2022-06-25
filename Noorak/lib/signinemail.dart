@@ -19,19 +19,31 @@ class Signinmail extends StatefulWidget {
 
 class _Signinmail extends State<Signinmail> {
   bool _isobsecure = true;
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   final formKey= GlobalKey<FormState>();
   String errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar:true,
       appBar: AppBar(
         
-        backgroundColor: Color.fromARGB(233, 22, 3, 3),
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        title:Text("NOORAK ",style: TextStyle(color:Colors.white,fontSize: 35,fontWeight: FontWeight.bold),
+        title:Text("NOORAK ",
+        style: TextStyle(color:Colors.white,
+        fontSize: 35,
+        fontWeight: FontWeight.bold,
+        shadows: <Shadow>[
+                          Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
+        ),
         
         ),
         centerTitle: true,
@@ -64,11 +76,12 @@ class _Signinmail extends State<Signinmail> {
       body: Container( 
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+        
          decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/0f3acc71f18597a61afe31e049795f73.jpg"),
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.white10, BlendMode.lighten)),
+             colorFilter: ColorFilter.mode(Color.fromARGB(48, 255, 243, 243), BlendMode.lighten)),
         ),
       child:Form(
         key: formKey,
@@ -107,6 +120,13 @@ class _Signinmail extends State<Signinmail> {
                         color: Colors.white,
                         fontSize: 38,
                         fontWeight: FontWeight.bold,
+                        shadows: <Shadow>[
+                          Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
                       ),
                     ),
                     Text(

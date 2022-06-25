@@ -20,15 +20,29 @@ class _MainPage extends State<MainPage> {
       print(language.languageCode);
     }
 
-    //double height_variable = MediaQuery.of(context).size.height;
-    // double width_variable = MediaQuery.of(context).size.width;
     return Scaffold(
-
-      extendBodyBehindAppBar: true,
+extendBodyBehindAppBar:true,
       appBar: AppBar(
+        
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title:Text(
+          "NOORAK ",
+          style: TextStyle
+          (color:Colors.white,
+          fontSize: 35,
+          fontWeight: FontWeight.bold,
+          shadows: const <Shadow>[
+                          Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
+          ),
         
+        ),
+        centerTitle: true,
           actions: <Widget>[
 
           Padding(
@@ -36,97 +50,166 @@ class _MainPage extends State<MainPage> {
             child: DropdownButton(
               underline: SizedBox(),
               icon: Icon(
-                Icons.language,
+                Icons.language_rounded,
                 color: Colors.white,
               ),
               items: Language.langugelist()
                   .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
                         value: lang,
-                        child: Row(
-                          mainAxisAlignment:MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                          Text(lang.name, style: TextStyle(fontSize: 20),),
+                        child: Row(children: <Widget>[
                           Text(lang.flag),
+                          Text(lang.name),
                         ]),
                       ))
                   .toList(),
               onChanged: (Language? language) {
-                _changeLanguage(language!);
+                // _changeLanguage(language!);
               },
             ),
           ),
         ],
       ),
       body: Container(
-        decoration: const BoxDecoration(
+  
+         width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/0f3acc71f18597a61afe31e049795f73.jpg"),
-            fit: BoxFit.cover,
-          ),
+              image: AssetImage("images/0f3acc71f18597a61afe31e049795f73.jpg"),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(Color.fromARGB(0, 167, 152, 152), BlendMode.lighten)),
         ),
-        child: Stack(
-          children: [
-          Column(
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
+        child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                20, MediaQuery.of(context).size.height*0.035, 22, 50),
+            child: Column(
+              children: <Widget>[
                 SizedBox(
-                    height: 228,
-                    child: const Center(
-                      child: Text(
-                        'NOORAK ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )),
-              ],
-            ), 
-            Padding(
-              padding: EdgeInsets.only(left: 70, top: 550),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Register()));
-                },
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(250, 40),
-                    primary: Color.fromRGBO(173, 71, 131, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20))),
-                child: Text(" Register",
-                    style: TextStyle(
-                        fontSize: 15, letterSpacing: 2, color: Colors.white)),
-                /*  */
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 70, top: 600),
-              child: ElevatedButton(
+                  height: 485,
+                )
+                ,ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) => Signin()));
                 },
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size(250, 40),
-                    primary: Color.fromARGB(255, 9, 4, 19),
+                    minimumSize: Size(280, 45),
+                    primary: Color.fromARGB(255, 152, 22, 105).withOpacity(0.75),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),),
-                  side: BorderSide(width:1,color:Color.fromARGB(255, 185, 45, 155).withOpacity(1),
+                  side: BorderSide(width:1,color:Color.fromARGB(255, 37, 28, 35).withOpacity(0.7),
                                                   
                  ),
  
                 ),
                         
-                child: Text(" Sign in",
+                child: Text(" Sign In",
                     style: TextStyle(
-                        fontSize: 15, letterSpacing: 2, color: Colors.white)),
+                        fontSize: 15,
+                         letterSpacing: 0.5, 
+                         color: Colors.white,
+                         fontWeight: FontWeight.bold,
+                         )),
                 /*  */
               ),
-            ),
-          ],
-        ),
+
+              SizedBox(
+                height: 10,
+              )
+                
+                ,ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Register()));
+                },
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(280, 45),
+                    primary: Color.fromARGB(255, 31, 28, 30).withOpacity(0.8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+                child: Text(" Register",
+                    style: TextStyle(
+                        fontSize: 15,
+                        letterSpacing: 0.5, 
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          )),
+                /*  */
+              ),
+              ]
+            )
+            )
+
+
+        // child: Stack(
+        //   children: [
+          // Column(
+          //     // ignore: prefer_const_literals_to_create_immutables
+          //     children: [
+          //       SizedBox(
+          //           height:108,
+          //           child: const Center(
+          //             // child: Text(
+          //             //   'NOORAK ',
+          //             //   style: TextStyle(
+          //             //     color: Colors.white,
+          //             //     fontSize: 35,
+          //             //     fontWeight: FontWeight.bold,
+          //             //   ),
+          //             // ),
+          //           )),
+          //     ],
+          //   ), 
+          //   Column(
+
+          //     // padding: EdgeInsets.only(left: 10, top: 520),
+          //     children: [
+          //       Center (
+                
+          //         child: ElevatedButton(
+          //       onPressed: () {
+          //         Navigator.of(context).push(
+          //             MaterialPageRoute(builder: (context) => Register()));
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //           minimumSize: Size(250, 40),
+          //           primary: Color.fromRGBO(173, 71, 131, 1),
+          //           shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(20))),
+          //       child: Text(" Register",
+          //           style: TextStyle(
+          //               fontSize: 15, letterSpacing: 2, color: Colors.white)),
+          //       /*  */
+          //     )
+          //     ,),
+          //     ]
+          //   ),
+          //   Padding(
+          //     padding: EdgeInsets.all(55),
+          //     child: ElevatedButton(
+          //       onPressed: () {
+          //         Navigator.of(context)
+          //             .push(MaterialPageRoute(builder: (context) => Signin()));
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //           minimumSize: Size(250, 40),
+          //           primary: Color.fromARGB(255, 9, 4, 19),
+          //           shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(20),),
+          //         side: BorderSide(width:1,color:Color.fromARGB(255, 185, 45, 155).withOpacity(1),
+                                                  
+          //        ),
+ 
+          //       ),
+                        
+          //       child: Text(" Sign in",
+          //           style: TextStyle(
+          //               fontSize: 15, letterSpacing: 2, color: Colors.white)),
+          //       /*  */
+          //     ),
+          //   ),
+          // ],
+        // ),
       ),
     );
   }

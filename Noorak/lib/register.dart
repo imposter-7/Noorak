@@ -30,6 +30,54 @@ class _Register extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar:true,
+      appBar: AppBar(
+        
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title:Text(
+          "NOORAK ",
+          style: TextStyle
+          (color:Colors.white,
+          fontSize: 35,
+          fontWeight: FontWeight.bold,
+          shadows: const <Shadow>[
+                          Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
+          ),
+        
+        ),
+        centerTitle: true,
+          actions: <Widget>[
+
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: DropdownButton(
+              underline: SizedBox(),
+              icon: Icon(
+                Icons.language_rounded,
+                color: Colors.white,
+              ),
+              items: Language.langugelist()
+                  .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
+                        value: lang,
+                        child: Row(children: <Widget>[
+                          Text(lang.flag),
+                          Text(lang.name),
+                        ]),
+                      ))
+                  .toList(),
+              onChanged: (Language? language) {
+                // _changeLanguage(language!);
+              },
+            ),
+          ),
+        ],
+      ),
       body: Container( 
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -37,7 +85,7 @@ class _Register extends State<Register> {
           image: DecorationImage(
               image: AssetImage("images/0f3acc71f18597a61afe31e049795f73.jpg"),
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.white10, BlendMode.lighten)),
+              colorFilter: ColorFilter.mode(Color.fromARGB(48, 255, 243, 243), BlendMode.lighten)),
         ),
       child:Form(
         key: formKey,
@@ -49,26 +97,7 @@ class _Register extends State<Register> {
                 20, MediaQuery.of(context).size.height*0.035, 20, 25),
             child: Column(
               children: <Widget>[
-               
-                SizedBox(
-                    // height: 110,
-
-                    child: const Center(
-                      child: Text(
-                        'NOORAK ',
-                        style: TextStyle(
-                          letterSpacing: 0.0099,
-                          color: Colors.white,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )),
-
-                     SizedBox(
-                      height: 110,
-                    ),
-                    
+              
                     Text(
                       "Welcome!",
                       textAlign: TextAlign.center,
@@ -76,6 +105,13 @@ class _Register extends State<Register> {
                         color: Colors.white,
                         fontSize: 38,
                         fontWeight: FontWeight.bold,
+                        shadows: const <Shadow>[
+                          Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
                       ),
                     ),
                     Text(
@@ -85,10 +121,17 @@ class _Register extends State<Register> {
                         color: Colors.white,
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
+                        shadows: <Shadow>[
+                          Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
                       ),
                     ),
                      SizedBox(
-                  height: 50,
+                  height: 100,
                 ),
 
 

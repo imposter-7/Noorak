@@ -27,7 +27,18 @@ class _Signin extends State<Signin> {
         
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title:Text("NOORAK ",style: TextStyle(color:Colors.white,fontSize: 35,fontWeight: FontWeight.bold),
+        title:Text("NOORAK ",
+        style: TextStyle(color:Colors.white,
+        fontSize: 35,
+        fontWeight: FontWeight.bold,
+        shadows: const <Shadow>[
+                          Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
+        ),
         
         ),
         centerTitle: true,
@@ -62,7 +73,7 @@ class _Signin extends State<Signin> {
           image: DecorationImage(
               image: AssetImage("images/0f3acc71f18597a61afe31e049795f73.jpg"),
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.white10, BlendMode.lighten)),
+              colorFilter: ColorFilter.mode(Color.fromARGB(48, 255, 243, 243), BlendMode.lighten)),
         ),
         child: Stack(
           children: [
@@ -92,6 +103,13 @@ class _Signin extends State<Signin> {
                           color: Colors.black,
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
+                          shadows: <Shadow>[
+                          Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
                         ),
                       ),
                 ),
@@ -103,6 +121,13 @@ class _Signin extends State<Signin> {
                           color: Colors.black,
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
+                          shadows: <Shadow>[
+                          Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(124, 3, 3, 3),
+                        ),
+                      ],
                         ),
                       ),
                 ),
@@ -120,7 +145,7 @@ SizedBox(height: 136),
                               color: Colors.white)),
                               style: ElevatedButton.styleFrom(
                                 
-                          primary: Color.fromARGB(255, 61, 35, 88).withOpacity(0.7),
+                          primary: Color.fromARGB(255, 46, 28, 66).withOpacity(0.9),
                           padding: EdgeInsets.symmetric(horizontal: 115,vertical: 15),
                           shape: RoundedRectangleBorder(
                             
