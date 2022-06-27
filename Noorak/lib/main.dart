@@ -4,7 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lastversion/mainpage.dart';
 import 'package:lastversion/realtime_db.dart';
+import 'package:lastversion/services/APIServices.dart';
 
+final APIServices apiServices = APIServices();
 
 //import 'package:responsive_framework/responsive_framework.dart';
 

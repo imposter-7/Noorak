@@ -121,7 +121,7 @@ class _Register extends State<Register> {
                         color: Colors.white,
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
-                        shadows: <Shadow>[
+                        shadows: const <Shadow>[
                           Shadow(
                           offset: Offset(1.0, 1.0),
                           blurRadius: 8.0,
@@ -144,7 +144,7 @@ class _Register extends State<Register> {
                           return 'Email is required!';
                           
                           }
-                        else if(!RegExp(r'^[a-z0-9]+@[a-z]+\.[a-z]{2,4}$').hasMatch(value!)){
+                        else if(!RegExp(r'^[a-z0-9]+@[a-z]+\.[a-z]{2,4}$').hasMatch(value)){
                            return 'Enter correct email';
                         }
                         else{
@@ -190,7 +190,7 @@ class _Register extends State<Register> {
                           errorMessage=' ';
                           return 'Password is required!';
                         }
-                        else if (RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$').hasMatch(value!)){
+                        else if (RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$').hasMatch(value)){
                            return 'invalid password';
                         }
                         else if(value.length < 8){
@@ -240,7 +240,7 @@ class _Register extends State<Register> {
                           errorMessage=' ';
                           return 'Password is required!';
                         }
-                        else if (RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$').hasMatch(value!)){
+                        else if (RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$').hasMatch(value)){
                            return 'Invalid password';
                         }
                         else if(value != _passwordTextController.text )

@@ -1,9 +1,7 @@
-// ignore: file_names
-// ignore_for_file: avoid_print, sized_box_for_whitespace, prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart' show FlutterSwitch;
-import 'package:lastversion/bottomnavbar.dart';
+import 'main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({key}) : super(key: key);
@@ -29,28 +27,50 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: ListView(
-        children: [
-          Room(
-            title: "kitchen",
-            image: "kitchen",
-            onToggle: () => print("kitchen"),
-            roomColor: Colors.pink,
-          ),
-          Room(
-            title: "livingroom",
-            image: "livingroom",
-            onToggle: () => print("livingroom"),
-            roomColor: Colors.blue,
-          ),
-          Room(
-            title: "bedroom",
-            image: "bedroom",
-            onToggle: () => print("bedroom"),
-            roomColor: Colors.green,
-          ),
-        ],
+      body: StreamBuilder(
+        stream: apiServices.rooms(),
+        builder: (BuildContext context, AsyncSnapshot snapshot)
+        {
+          if(!snapshot.hasData)
+          {
+            return const Center(child: CircularProgressIndicator(),);
+          }
+          final Map data = snapshot.data.snapshot.value;
+          
+          // ignore: unnecessary_null_comparison
+          if(data == null || data.isEmpty)
+          {
+            return const Center(child: Text("No Rooms Found!", style: TextStyle(color: Colors.white, fontSize: 30),),);
+          }
+          final List roomKeys = data.keys.toList();
+          return GridView.count(
+            crossAxisCount: 2,
+            children: List.generate(roomKeys.length, (index) => Room(image: "kitchen", title: data[roomKeys[index]]['alias'], roomColor: Colors.pink, onToggle: () {},)),
+          );
+        },
       ),
+      // body: ListView(
+      //   children: [
+      //     Room(
+      //       title: "kitchen",
+      //       image: "kitchen",
+      //       onToggle: () => print("kitchen"),
+      //       roomColor: Colors.pink,
+      //     ),
+      //     Room(
+      //       title: "livingroom",
+      //       image: "livingroom",
+      //       onToggle: () => print("livingroom"),
+      //       roomColor: Colors.blue,
+      //     ),
+      //     Room(
+      //       title: "bedroom",
+      //       image: "bedroom",
+      //       onToggle: () => print("bedroom"),
+      //       roomColor: Colors.green,
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
@@ -122,16 +142,13 @@ class _RoomState extends State<Room> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text(
               widget.title.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
           ),
-          Positioned(
-            top: 20,
-            right: 20,
-            child: FlutterSwitch(
+          FlutterSwitch(
               width: 50,
               height: 25,
               valueFontSize: 25.0,
@@ -146,7 +163,6 @@ class _RoomState extends State<Room> {
                 widget.onToggle();
               },
             ),
-          ),
         ],
       ),
     );
