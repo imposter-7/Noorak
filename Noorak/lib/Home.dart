@@ -33,9 +33,14 @@ class _HomePageState extends State<HomePage> {
         {
           if(!snapshot.hasData)
           {
-            return SizedBox.shrink();
+            return const Center(child: CircularProgressIndicator(),);
           }
           final Map data = snapshot.data.snapshot.value;
+          // ignore: unnecessary_null_comparison
+          if(data == null || data.isEmpty)
+          {
+            return const Center(child: Text("No 3absi Found!", style: TextStyle(color: Colors.white, fontSize: 30),),);
+          }
           final List roomKeys = data.keys.toList();
           return GridView.count(
             crossAxisCount: 2,
