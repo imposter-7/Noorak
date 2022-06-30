@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart' show FlutterSwitch;
+import 'package:lastversion/roomdetails.dart';
 import 'main.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,42 +36,50 @@ class _HomePageState extends State<HomePage> {
           {
             return const Center(child: CircularProgressIndicator(),);
           }
-          final Map data = snapshot.data.snapshot.value;
+          // final Map data = snapshot.data.snapshot.value;
           
-          // ignore: unnecessary_null_comparison
-          if(data == null || data.isEmpty)
-          {
-            return const Center(child: Text("No Rooms Found!", style: TextStyle(color: Colors.white, fontSize: 30),),);
+           try{
+              final Map data = snapshot.data.snapshot.value;
+              final List roomKeys = data.keys.toList();
+               
+              return ListView(
+                // crossAxisCount: 2,
+                children: List.generate(roomKeys.length, (index) => Room(image: "kitchen", title:data[roomKeys[index]]['alias'].toString(), roomColor: Colors.pink, onToggle: () {},)),
+              );
           }
-          final List roomKeys = data.keys.toList();
-          return GridView.count(
-            crossAxisCount: 2,
-            children: List.generate(roomKeys.length, (index) => Room(image: "kitchen", title: data[roomKeys[index]]['alias'], roomColor: Colors.pink, onToggle: () {},)),
-          );
+     catch(_) {
+       return ListView(
+        children: const [
+          SizedBox(
+            height: 120,
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 10,horizontal: 150),
+          child: Icon(
+                Icons.meeting_room_sharp,
+                color: Colors.white,
+                size: 100,
+              ),
+          
+          ),
+          SizedBox(height: 10,),
+          Padding(padding: EdgeInsets.symmetric(vertical: 0,horizontal:160 ),
+          child :Text("No rooms yet...",
+          textAlign:TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+          ),
+          )
+          ),
+          SizedBox(height: 10,),
+
+        ],
+      );
+
+          }
         },
       ),
-      // body: ListView(
-      //   children: [
-      //     Room(
-      //       title: "kitchen",
-      //       image: "kitchen",
-      //       onToggle: () => print("kitchen"),
-      //       roomColor: Colors.pink,
-      //     ),
-      //     Room(
-      //       title: "livingroom",
-      //       image: "livingroom",
-      //       onToggle: () => print("livingroom"),
-      //       roomColor: Colors.blue,
-      //     ),
-      //     Room(
-      //       title: "bedroom",
-      //       image: "bedroom",
-      //       onToggle: () => print("bedroom"),
-      //       roomColor: Colors.green,
-      //     ),
-      //   ],
-      // ),
+    
     );
   }
 }
@@ -104,55 +113,50 @@ class _RoomState extends State<Room> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 150,
+      height: 130,
       child: Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image(
-                image: AssetImage("images/${widget.image}.jpg"),
-                fit: BoxFit.cover,
-                
-                color: widget.roomColor,
-                colorBlendMode: BlendMode.darken,
-                height: 150,
-                width: double.infinity,
+           GestureDetector(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image(
+                  image: AssetImage("images/${widget.image}.jpg"),
+                  fit: BoxFit.cover,
+                  color: widget.roomColor,
+                  colorBlendMode: BlendMode.darken,
+                  height: 120,
+                  width: double.infinity,
+                ),
               ),
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RoomDetail()),
+              );
+            },
           ),
-
-          //),
-          /*  height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("images/${widget.image}.jpg"),
-                  fit: BoxFit.cover, 
-                ),
-                borderRadius: BorderRadius.circular(15),
-                /* color: widget.roomColor,
-                backgroundBlendMode: BlendMode.darken,
-                /*  colorBlendMode: BlendMode.darken,
-              height: 150,
-              width: double.infinity, */ */
-              ), */
+      
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text(
-              widget.title.toString(),
+              widget.title.toString().toUpperCase(),
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
+                  
             ),
+            
           ),
           FlutterSwitch(
               width: 50,
               height: 25,
-              valueFontSize: 25.0,
-              toggleSize: 45.0,
+              valueFontSize: 35.0,
+              toggleSize: 50.0,
               value: _switchValue,
               borderRadius: 30.0,
               onToggle: (value) {
@@ -166,5 +170,6 @@ class _RoomState extends State<Room> {
         ],
       ),
     );
+    
   }
 }

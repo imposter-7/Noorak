@@ -1,6 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:lastversion/bottomnavbar.dart';
+import 'package:lastversion/profile.dart';
+import 'package:lastversion/smart_pages/poweroff.dart';
+import 'package:lastversion/smart_pages/poweron.dart';
+import 'package:lastversion/smart_pages/schedulenotification.dart';
+import 'package:lastversion/smart_pages/sunrise.dart';
+import 'package:lastversion/smart_pages/sunset.dart';
 
 class SmartPage extends StatefulWidget {
   const SmartPage({key}) : super(key: key);
@@ -18,9 +23,13 @@ class _SmartPageState extends State<SmartPage> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        height: 1000,
+      body: 
+      SingleChildScrollView(
+        
+      child: 
+      SizedBox(
+        // width: double.infinity,
+        height: 700.0,
         child: Stack(
           children: [
             Padding(
@@ -34,7 +43,8 @@ class _SmartPageState extends State<SmartPage> {
                 ),
               ),
             ),
-            Padding(
+        GestureDetector(
+          child:  Padding(
               padding: EdgeInsets.only(top: 50),
               child: Container(
                 width: 400,
@@ -45,6 +55,13 @@ class _SmartPageState extends State<SmartPage> {
                 ),
               ),
             ),
+             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Poweron()),
+              );
+            },
+        ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 55),
               child: Text(
@@ -65,21 +82,29 @@ class _SmartPageState extends State<SmartPage> {
             ),
             //Box number two :
             //
-            Padding(
+         GestureDetector(
+           child: Padding(
               padding: EdgeInsets.only(top: 170),
               child: Container(
                 width: 400,
                 height: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.greenAccent,
+                  color: Color.fromARGB(232, 105, 184, 240),
                 ),
               ),
             ),
+             onTap: () {
+               Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Sunrise()),
+              );
+            },
+         ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 180),
               child: Text(
-                'Turn on the switch at sunrise ',
+                'Turn off the switch at sunrise ',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -96,7 +121,8 @@ class _SmartPageState extends State<SmartPage> {
             ),
 
             //  Box number three sunset
-
+          GestureDetector(
+            child :
             Padding(
               padding: EdgeInsets.only(top: 290),
               child: Container(
@@ -104,10 +130,17 @@ class _SmartPageState extends State<SmartPage> {
                 height: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.blueAccent,
+                  color: Color.fromARGB(218, 140, 218, 178),
                 ),
               ),
             ),
+             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SunSet()),
+              );
+            },
+          ),
             Row(
               children: [
                 Container(
@@ -132,6 +165,9 @@ class _SmartPageState extends State<SmartPage> {
               ),
             ),
             //Box number four
+
+          GestureDetector(
+            child:
             Padding(
               padding: EdgeInsets.only(top: 410),
               child: Container(
@@ -143,6 +179,13 @@ class _SmartPageState extends State<SmartPage> {
                 ),
               ),
             ),
+             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Notifications()),
+              );
+            },
+          ),
             Row(
               children: [
                 Container(
@@ -175,9 +218,53 @@ class _SmartPageState extends State<SmartPage> {
                 size: 35,
               ),
             ),
+            ////////////////
+            ////
+            ///
+            ///
+          GestureDetector(
+            child:
+          Padding(
+              padding: EdgeInsets.only(top: 530),
+              child: Container(
+                width: 400,
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color.fromARGB(255, 218, 210, 219),
+                ),
+              ),
+            ),
+             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Poweroff()),
+              );
+            },
+          ),
+            Padding(
+              padding: EdgeInsets.only(left: 20, top: 540),
+              child: Text(
+                'Schedulaed Power-off',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 350, top: 540),
+              child: Icon(
+                Icons.timer,
+                color: Colors.white,
+                size: 35,
+              ),
+            ),
           ],
+          
         ),
-      ),
+      ),)
+      // ,bottomNavigationBar: MyBottomNavigationBar(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lastversion/roomdetails.dart';
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller) {
@@ -60,4 +61,83 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
     ),
   );
+}
+
+
+class Rooms extends StatefulWidget {
+  final String title, image;
+  // final VoidCallback onToggle;
+  final Color roomColor;
+
+  const Rooms({
+    key,
+    required this.title,
+    required this.image,
+    // required this.onToggle,
+    required this.roomColor,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _RoomsState();
+}
+
+class _RoomsState extends State<Rooms> {
+  bool _switchValue = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 80.0,
+      child: Stack(
+        children: [
+          SizedBox(
+            height: 60.0,
+          ),
+           GestureDetector(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image(
+                  image: AssetImage("images/${widget.image}.png"),
+                  fit: BoxFit.cover,
+                  color: widget.roomColor,
+                  colorBlendMode: BlendMode.darken,
+                  height: 120,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RoomDetail()),
+              );
+            },
+          ),
+      
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            child: Text(
+              widget.title.toString().toUpperCase(),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+                  
+            ),
+            
+          ),
+        
+        ],
+      ),
+    );
+  }
 }

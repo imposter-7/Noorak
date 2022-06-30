@@ -2,9 +2,14 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lastversion/Home.dart';
+import 'package:lastversion/Smart.dart';
 import 'package:lastversion/mainpage.dart';
 import 'package:lastversion/realtime_db.dart';
+import 'package:lastversion/roomdetails.dart';
 import 'package:lastversion/services/APIServices.dart';
+import 'package:lastversion/smart_pages/poweron.dart';
+import 'package:lastversion/smart_pages/sunset.dart';
 
 final APIServices apiServices = APIServices();
 
@@ -24,6 +29,7 @@ Future<void> main() async {
 
     // home: realtime_db(),
     home: MainPage(),
+    // home: SmartPage(),
   ));
 }
 
@@ -41,7 +47,8 @@ supportedLocales: [
   ],
       home: MainPage(),
 
-
+    
     );
+    
   }
 }

@@ -1,4 +1,4 @@
-#Mon Jun 27 23:10:42 EEST 2022
+#Fri Jul 01 00:06:06 EEST 2022
 base.1=C\:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
 base.0=C\:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex

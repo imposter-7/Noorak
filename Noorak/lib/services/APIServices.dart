@@ -9,4 +9,13 @@ class APIServices
     final FirebaseDatabase db = FirebaseDatabase.instance;
     return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").onValue.asBroadcastStream();
   }
+
+  Stream<DatabaseEvent> lights()
+  {
+    final FirebaseDatabase db = FirebaseDatabase.instance;
+    return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child("room1/lights").onValue.asBroadcastStream();
+    
+  }
+
+  
 }
