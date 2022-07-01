@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                
               return ListView(
                 // crossAxisCount: 2,
-                children: List.generate(roomKeys.length, (index) => Room(image: "kitchen", title:data[roomKeys[index]]['alias'].toString(), roomColor: Colors.pink, onToggle: () {},)),
+                children: List.generate(roomKeys.length, (index) => Room(roomID: roomKeys[index], image: "kitchen", title:data[roomKeys[index]]['alias'].toString(), roomColor: Colors.pink, onToggle: () {},)),
               );
           }
      catch(_) {
@@ -85,12 +85,13 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Room extends StatefulWidget {
-  final String title, image;
+  final String title, image, roomID;
   final VoidCallback onToggle;
   final Color roomColor;
 
   const Room({
     key,
+    required this.roomID,
     required this.title,
     required this.image,
     required this.onToggle,
@@ -118,7 +119,7 @@ class _RoomState extends State<Room> {
         children: [
            GestureDetector(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Image(
@@ -134,7 +135,7 @@ class _RoomState extends State<Room> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RoomDetail()),
+                MaterialPageRoute(builder: (context) => RoomDetail(roomID: widget.roomID)),
               );
             },
           ),

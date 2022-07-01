@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:lastversion/addlight.dart';
 
 class RoomDetail extends StatefulWidget {
+  final String roomID;
+
+  const RoomDetail({Key? key, required this.roomID}) : super(key: key);
+  
+  @override
   State<StatefulWidget> createState() => _RoomDetail();
 }
 
@@ -50,7 +55,7 @@ class _RoomDetail extends State<RoomDetail> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddLight()),
+                  MaterialPageRoute(builder: (context) => AddLight(roomID: widget.roomID)),
                 );
               }),
           Padding(

@@ -68,6 +68,7 @@ class Rooms extends StatefulWidget {
   final String title, image;
   // final VoidCallback onToggle;
   final Color roomColor;
+  
 
   const Rooms({
     key,
@@ -82,7 +83,7 @@ class Rooms extends StatefulWidget {
 }
 
 class _RoomsState extends State<Rooms> {
-  bool _switchValue = false;
+late bool selected = false;
 
   @override
   void dispose() {
@@ -96,12 +97,12 @@ class _RoomsState extends State<Rooms> {
       height: 80.0,
       child: Stack(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 60.0,
           ),
            GestureDetector(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Image(
@@ -115,10 +116,11 @@ class _RoomsState extends State<Rooms> {
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RoomDetail()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => RoomDetail(roomID: "hello",)),
+              // );
+           
             },
           ),
       

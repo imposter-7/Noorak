@@ -2,96 +2,30 @@
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:lastversion/main.dart';
 
 import 'Home.dart';
 
 class AddLight extends StatefulWidget {
+  final String roomID;
+  const AddLight({Key? key, required this.roomID}) : super(key: key);
+
+  @override
   State<StatefulWidget> createState() => _AddLight();
 }
 
 class _AddLight extends State<AddLight> {
-  int i =0 ; 
- final DatabaseReference  _dbref= FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03/rooms/room1/lights");
-  String alias = '';
 
+  @override
   void initState(){
     super.initState();
 
     
   }
-  
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text("MyHome"),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-      ),
-      body: Stack(
-        // ignore: prefer_const_literals_to_create_immutables
-        children: [
-          Text("Lights",style: TextStyle(
-            
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          ),
-           SizedBox(height: 10,),
-          Padding(padding: EdgeInsets.only(top:170,left:110),
-          child:   ElevatedButton(
-                      onPressed: () async {
-                        final alias = await openDialog();
-                        if(alias == null || alias.isEmpty) return;
-                        setState(() {
-                          this.alias = alias;
-                          print(this.alias);
-                        });
-                        _updateValueON();
-                      
-                      },
-                      // ignore: sort_child_properties_last
-                      child: Text("Add Lights ",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blueAccent,
-                          padding: EdgeInsets.symmetric(horizontal:50),
-                          shape: RoundedRectangleBorder(
-                            
-                              borderRadius: BorderRadius.circular(20)
-                              
-                              
-                              ),
-                              
-                              
-                              ),
-                    ) ,
-          ),
-          
-          Padding(padding: EdgeInsets.symmetric(horizontal: 263,vertical:181),
-          child: Icon(
-            Icons.add,
-                color: Colors.white,
-                size: 25,
-              
-          ),
-          ),
-        
-
-        ]),
-
-    );
-  }
-
-    _updateValueON(){
-      i++;
-    _dbref.update( { "light$i-new": {"alias" : alias}});
-    _dbref.child("light$i-new").child("led_status").set("1");
+  void dispose() {
+    super.dispose();
   }
 
   Future<String?> openDialog() {
@@ -110,7 +44,12 @@ class _AddLight extends State<AddLight> {
 
       actions: [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(controller.text),
+          onPressed: () {
+                        // ignore: unnecessary_null_comparison
+                        if(controller.text == null || controller.text.isEmpty) return;
+                        apiServices.addLight(controller.text, widget.roomID);
+                        Navigator.of(context).pop();
+          },
           child: Text('Submit'))
       ],
       
@@ -119,5 +58,169 @@ class _AddLight extends State<AddLight> {
     );
   }
 
-    
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text("Lights"),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        actions: [
+          IconButton(onPressed: openDialog, icon: Icon(Icons.add, color: Colors.white,))
+        ],
+      ),
+     body: StreamBuilder(
+      stream: apiServices.lights(widget.roomID),
+      builder: (BuildContext context, AsyncSnapshot snapshot)
+      {
+        if(!snapshot.hasData)
+        {
+          return Center(child: CircularProgressIndicator(color: Colors.white,),);
+        }
+
+        try
+        {
+          final Map data = snapshot.data.snapshot.value;
+          final List lightKeys = data.keys.toList();
+          return GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 0.9,
+          children: List.generate(lightKeys.length, (index) => GestureDetector(
+            onTap: () async => await apiServices.toggleLight(widget.roomID, lightKeys[index]),
+            child: Column(
+              children: [
+                Text(data[lightKeys[index]]['alias'], style: TextStyle(color: Colors.white, fontSize: 20),),
+                Flexible(
+                  child: Container(
+                            alignment: Alignment.topCenter,
+                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                
+                            decoration: BoxDecoration(
+                               image: DecorationImage(
+                                image: AssetImage(
+                                  data[lightKeys[index]]['led_status'].toString() == '1' ? 'images/lighton.png' : 'images/lightoff.png',
+                                ),
+                                fit: BoxFit.fill,
+                              ), 
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                
+                            ),
+                          ),
+                ),
+                
+              ],
+            ),
+          )),
+          );
+        }
+        catch(_)
+        {
+          return Center(child: Text("No lights yet...",
+          textAlign:TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+          ),
+          ),);
+        }
+
+        
+      } ,
+     ),
+
+    );
+  } 
 }
+
+
+
+
+
+
+
+
+
+// Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: SafeArea(
+//         child: Scaffold(
+//           backgroundColor: Color.fromARGB(255, 27, 27, 27),
+//           appBar: AppBar(
+//             title: const Text("MyHome"),
+//             centerTitle: true,
+//             backgroundColor: Colors.black,
+//           ),
+//           body: Stack(
+//            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+//             children: [
+//               Padding(
+//                 padding: EdgeInsets.only(top: 70,left:60),
+//                 child: Text(
+//                   "Left Light",
+//                   style: TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 25,
+//                       fontWeight: FontWeight.bold),
+//                 ),
+//               ),
+//                Padding(
+//                 padding: EdgeInsets.only(top: 70,left:230),
+//                 child: Text(
+//                   "Right Light",
+//                   style: TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 25,
+//                       fontWeight: FontWeight.bold),
+//                 ),
+//               ),
+//               Padding(
+//                 padding: EdgeInsets.only(top: 100),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Container(
+//                       alignment: Alignment.topCenter,
+//                       height: 250.0,
+//                       width: 150.0,
+
+//                       decoration: BoxDecoration(
+//                          image: DecorationImage(
+//                           image: AssetImage(
+//                             'images/newbulb2.png',
+//                           ),
+//                           fit: BoxFit.fill,
+//                         ), 
+//                         color: Colors.grey,
+//                         borderRadius: BorderRadius.circular(20),
+
+//                       ),
+//                     ),
+//                     SizedBox(
+//                       width: 20,
+//                     ),
+//                     Container(
+//                       alignment: Alignment.topCenter,
+                      
+//                       height: 250.0,
+//                       width: 150.0,
+//                       decoration: BoxDecoration(
+//                         image: DecorationImage(
+//                           image: AssetImage('images/electric-light-bulb.png'),
+//                           fit: BoxFit.fill,
+                          
+//                         ),
+//                         color: Color.fromARGB(255, 240, 235, 235),
+//                         borderRadius: BorderRadius.circular(20),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
