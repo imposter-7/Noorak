@@ -90,8 +90,21 @@ class _AddLight extends State<AddLight> {
             onTap: () async => await apiServices.toggleLight(widget.roomID, lightKeys[index]),
             child: Column(
               children: [
-                Text(data[lightKeys[index]]['alias'], style: TextStyle(color: Colors.white, fontSize: 20),),
-                Flexible(
+              Row(
+                
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                Text(data[lightKeys[index]]['alias'], style: TextStyle(color: Colors.white, fontSize: 20,),),
+                IconButton(
+                  onPressed:()=>
+                  // print(lightKeys[index]),
+                   apiServices.removeLight(widget.roomID, lightKeys[index].toString().toLowerCase()),
+                    icon:  Icon(Icons.delete_sharp,size:30,color: Color.fromARGB(255, 190, 59, 59),)
+              )
+                ],
+              )
+                
+              , Flexible(
                   child: Container(
                             alignment: Alignment.topCenter,
                             margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),

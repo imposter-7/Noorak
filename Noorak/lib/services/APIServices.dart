@@ -90,4 +90,8 @@ class APIServices
    await FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child(feature).remove();
   }
 
+  void removeLight(String roomID, String lightID) async{
+   await FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child("lights").child(lightID).remove();
+  }
+
 }
