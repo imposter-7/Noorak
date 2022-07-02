@@ -11,6 +11,12 @@ class APIServices
     return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").onValue.asBroadcastStream();
   }
 
+   Stream<DatabaseEvent> roomDetails(String roomID)
+  {
+    final FirebaseDatabase db = FirebaseDatabase.instance;
+    return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child(roomID).onValue.asBroadcastStream();
+  }
+
   Stream<DatabaseEvent> lights(String roomID)
   {
     final FirebaseDatabase db = FirebaseDatabase.instance;
@@ -22,13 +28,13 @@ class APIServices
     final DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child(roomID).child("lights").child(lightID);
     final DatabaseEvent event = await db.once();
     final Map data = event.snapshot.value as Map;
-    if(data['led_status'].toString() == '1')
+    if(data['led_status'] == 1)
     {
-      await db.update({'led_status': '0'});
+      await db.update({'led_status': 0});
     }
     else
     {
-      await db.update({'led_status': '1'});
+      await db.update({'led_status': 1});
     }
   }
 
@@ -50,7 +56,7 @@ class APIServices
         if(!exitsingRooms.contains(newUUID)) 
         {
           await db.update( {newUUID: {"alias" : alias}});
-          await db.child(newUUID).child("led_status").set("0");
+          await db.child(newUUID).child("led_status").set(0);
           break;
         }
       }
@@ -59,7 +65,7 @@ class APIServices
     {
       newUUID = uuid.v1().toString();
       await db.update( {newUUID: {"alias" : alias}});
-      await db.child(newUUID).child("led_status").set("0");
+      await db.child(newUUID).child("led_status").set(0);
     }
     
    

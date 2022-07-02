@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lastversion/addlight.dart';
+import 'package:lastversion/automationDetails.dart';
 
 class RoomDetail extends StatefulWidget {
   final String roomID;
@@ -40,7 +41,7 @@ class _RoomDetail extends State<RoomDetail> {
               ),
             ),
           ),
-          InkWell(
+          GestureDetector(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 170, horizontal: 108),
                 child: Text(
@@ -57,8 +58,16 @@ class _RoomDetail extends State<RoomDetail> {
                   context,
                   MaterialPageRoute(builder: (context) => AddLight(roomID: widget.roomID)),
                 );
-              }),
-          Padding(
+              }
+              ),
+          GestureDetector(
+            onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AutoDetails(roomID: widget.roomID)),
+                );
+              },
+            child: Padding(
             padding: EdgeInsets.only(top: 280, left: 70),
             child: Container(
               width: 280,
@@ -73,6 +82,8 @@ class _RoomDetail extends State<RoomDetail> {
                 ),
               ),
             ),
+          ),
+          
           ),
           Padding(
             padding: EdgeInsets.only(top: 330, left: 95),

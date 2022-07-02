@@ -29,7 +29,7 @@ class _AddLight extends State<AddLight> {
   }
 
   Future<String?> openDialog() {
-      final TextEditingController controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
 
     return showDialog<String>(
     
@@ -103,7 +103,7 @@ class _AddLight extends State<AddLight> {
                                 ),
                                 fit: BoxFit.fill,
                               ), 
-                              color: Colors.grey,
+                              color: Color.fromARGB(255, 244, 234, 144),
                               borderRadius: BorderRadius.circular(20),
                 
                             ),

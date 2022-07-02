@@ -29,7 +29,7 @@ Future<void> main() async {
 
     // home: realtime_db(),
     home: MainPage(),
-    // home: SmartPage(),
+    // home: AutoDetails(),
   ));
 }
 

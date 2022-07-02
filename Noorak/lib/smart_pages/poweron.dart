@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lastversion/main.dart';
 import 'package:lastversion/screens/reusable_widgets.dart';
@@ -18,6 +19,7 @@ class _Poweron extends State<Poweron> {
       if (t != null) {
         setState(() {
           _selectedTime = t.format(context);
+          print(_selectedTime);
         });
       }
     }
@@ -85,12 +87,16 @@ class _Poweron extends State<Poweron> {
               final List roomKeys = data.keys.toList();
               return ListView(
                 // crossAxisCount: 2,
+                
                 children: List.generate(roomKeys.length, (index) => Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(224, 215, 149, 191))),
+                
+                
+                
               );
           }
           catch(_) {
               return ListView(
-        children: const [
+        children:  [
           SizedBox(
             height: 120,
           ),
@@ -112,6 +118,7 @@ class _Poweron extends State<Poweron> {
           ),
           )
           ),
+         
           SizedBox(height: 10,),
   
         ],
@@ -211,7 +218,21 @@ class _Poweron extends State<Poweron> {
             //             fontSize: 15, letterSpacing: 2, color: Colors.white)),
             //   ),
             //  ),
-      )
+      ),
+       Padding(
+            padding: EdgeInsets.symmetric( horizontal:70, vertical: 50),
+            child: ElevatedButton(
+              onPressed:()async{
+                 DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child("room1");
+                 await db.update({"power-on ": _selectedTime});
+
+              },
+              
+              
+              child: Text("Set")
+            ),
+         ),
+              
         ],
       ),
     );
