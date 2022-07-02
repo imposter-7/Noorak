@@ -224,7 +224,7 @@ class _Poweron extends State<Poweron> {
             child: ElevatedButton(
               onPressed:()async{
                  DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child("room1");
-                 await db.update({"power-on ": _selectedTime});
+                 await db.update({"power-on": _selectedTime.toString()});
 
               },
               

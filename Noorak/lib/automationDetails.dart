@@ -54,7 +54,7 @@ class _AutoDetails extends State<AutoDetails> {
              detailsData["sunset"] = data[keys[keys.indexOf('sunset')]].toString();
           }
 
-            if(detailsData.length==0){
+            if(detailsData.isEmpty){
           return Center(child: Text("No automation details yet..",
                     textAlign:TextAlign.center,
                     style: TextStyle(
