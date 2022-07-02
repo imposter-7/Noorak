@@ -11,6 +11,7 @@ class Poweron extends StatefulWidget {
 
 class _Poweron extends State<Poweron> {
   String _selectedTime = "Pick your time ";
+  List selectedRooms =[];
   @override
   Widget build(BuildContext context) {
     Future<void> _openTimerPicker(BuildContext context) async {
@@ -85,13 +86,29 @@ class _Poweron extends State<Poweron> {
            try{
               final Map data = snapshot.data.snapshot.value;
               final List roomKeys = data.keys.toList();
-              return ListView(
-                // crossAxisCount: 2,
-                
-                children: List.generate(roomKeys.length, (index) => Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(224, 215, 149, 191))),
-                
-                
-                
+            return Column(
+                children: [
+                  Flexible(
+                    child: ListView(
+                      // crossAxisCount: 2,
+                      children: List.generate(roomKeys.length, (index) =>  Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(255, 228, 193, 220),
+                      onSelect:(){
+                        selectedRooms.contains(roomKeys[index])?selectedRooms.remove(roomKeys[index]):selectedRooms.add(roomKeys[index]);
+                        
+                      }
+                      )),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: (){
+                      for(String id in selectedRooms){
+                        apiServices.setFeature("power-on",  _selectedTime.toString(), id);
+                      }
+                      
+                    }
+                  , child: Text("Set")
+                  )
+                ],
               );
           }
           catch(_) {
@@ -219,19 +236,19 @@ class _Poweron extends State<Poweron> {
             //   ),
             //  ),
       ),
-       Padding(
-            padding: EdgeInsets.symmetric( horizontal:70, vertical: 50),
-            child: ElevatedButton(
-              onPressed:()async{
-                 DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child("room1");
-                 await db.update({"power-on": _selectedTime.toString()});
+      //  Padding(
+      //       padding: EdgeInsets.symmetric( horizontal:70, vertical: 50),
+      //       child: ElevatedButton(
+      //         onPressed:()async{
+      //            DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child("room1");
+      //            await db.update({"power-on": _selectedTime.toString()});
 
-              },
+      //         },
               
               
-              child: Text("Set")
-            ),
-         ),
+      //         child: Text("Set")
+      //       ),
+      //    ),
               
         ],
       ),

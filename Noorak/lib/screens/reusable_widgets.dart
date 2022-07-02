@@ -68,6 +68,7 @@ class Rooms extends StatefulWidget {
   final String title, image;
   // final VoidCallback onToggle;
   final Color roomColor;
+  final VoidCallback onSelect;
   
 
   const Rooms({
@@ -76,6 +77,7 @@ class Rooms extends StatefulWidget {
     required this.image,
     // required this.onToggle,
     required this.roomColor,
+    required this.onSelect
   }) : super(key: key);
 
   @override
@@ -83,16 +85,29 @@ class Rooms extends StatefulWidget {
 }
 
 class _RoomsState extends State<Rooms> {
-late bool selected = false;
+ bool selected = false;
 
   @override
   void dispose() {
     super.dispose();
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return
+    GestureDetector( 
+      onTap: () {
+        setState(() {
+          selected = !selected;
+         });
+
+        widget.onSelect();
+
+      },
+    child: 
+    Container(
       width: double.infinity,
       height: 80.0,
       child: Stack(
@@ -100,29 +115,23 @@ late bool selected = false;
           const SizedBox(
             height: 60.0,
           ),
-           GestureDetector(
-            child: Padding(
+           
+             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Image(
                   image: AssetImage("images/${widget.image}.png"),
                   fit: BoxFit.cover,
-                  color: widget.roomColor,
+                  color: selected?Colors.blue:widget.roomColor,
                   colorBlendMode: BlendMode.darken,
                   height: 120,
                   width: double.infinity,
                 ),
               ),
             ),
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => RoomDetail(roomID: "hello",)),
-              // );
            
-            },
-          ),
+         
       
 
           Padding(
@@ -140,6 +149,7 @@ late bool selected = false;
         
         ],
       ),
+    )
     );
   }
 }

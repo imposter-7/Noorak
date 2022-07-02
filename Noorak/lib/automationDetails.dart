@@ -18,7 +18,7 @@ class _AutoDetails extends State<AutoDetails> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("MyHome"),
+        title: const Text("Automation Details"),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
@@ -45,13 +45,13 @@ class _AutoDetails extends State<AutoDetails> {
              detailsData["Power-off"] = data[keys[keys.indexOf('power-off')]].toString();
           }
           if(keys.contains("scheduled-notifications")){
-             detailsData["scheduled-notifications"] = data[keys[keys.indexOf('scheduled-notifications')]].toString();
+             detailsData["Scheduled-notifications"] = data[keys[keys.indexOf('scheduled-notifications')]].toString();
           }
            if(keys.contains("sunrise")){
-             detailsData["sunrise"] = data[keys[keys.indexOf('sunrise')]].toString();
+             detailsData["Sunrise"] = data[keys[keys.indexOf('sunrise')]].toString();
           }
            if(keys.contains("sunset")){
-             detailsData["sunset"] = data[keys[keys.indexOf('sunset')]].toString();
+             detailsData["Sunset"] = data[keys[keys.indexOf('sunset')]].toString();
           }
 
             if(detailsData.isEmpty){
@@ -78,77 +78,95 @@ class _AutoDetails extends State<AutoDetails> {
          final List detailsKeys = detailsData.keys.toList();
 
           // print(detailsKeys[1]);
-          return GridView.count(
+          return ListView(
                 // padding: EdgeInsets.symmetric(vertical: 150,horizontal: 20),
                 
-              crossAxisCount: 1,
+              // crossAxisCount: 1,
                 // detailsKeys[index]+'\n\n'+detailsData[detailsKeys[index]]
                 children: List.generate(detailsKeys.length, (index) =>
-                Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 100, left: 45),
-            child: Container(
-              height: 75.0,
-              width: 330.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.grey,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 110, left: 140),
-            child: ListView(
-              children: [
-                // Text(
-                //  detailsKeys[index]+' at '+detailsData[detailsKeys[index]],
-                //   style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.bold),
-                // ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
+                Flexible(
+                  child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                 detailsKeys[index]+' at '+detailsData[detailsKeys[index]],
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                    Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 100, left: 45),
-            child: Container(
-              height: 75.0,
-              width: 70.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color.fromARGB(255, 240, 28, 13),
-              ),
-              child: Icon(
-                Icons.delete,
-                size: 40,
-                color: Colors.white,
-              ),
-            ),
-          ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                      child: Container(
+                        height: 75.0,
+                        width: 330.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey,
+                        ),
+                        child:   Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              
+                    Container(
+                        height: 75.0,
+                        width: 70.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 240, 28, 13),
+                        ),
+                        child: Icon(
+                          Icons.delete,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                  
+                
+                  Text(
+                   detailsKeys[index]+' at '+detailsData[detailsKeys[index]],
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                        
+                  ),
+                  Padding(
+                    padding:EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                     child:
+                      Icon(
+                        Icons.edit,
+                        color: Colors.white,
 
+                      ),
+                  )
+                    ],
+                  ),
+              ),
+            ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 10, left: 10),
+            //     child:
          
-        ],
-      ),
+                
+               
+             
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 100, left: 45),
+            //   child: Container(
+            //     height: 75.0,
+            //     width: 70.0,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(20),
+            //       color: Color.fromARGB(255, 240, 28, 13),
+            //     ),
+            //     child: Icon(
+            //       Icons.delete,
+            //       size: 40,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
+        
+           
+          ],
+              ),
+        ),
                 )
               );
         }

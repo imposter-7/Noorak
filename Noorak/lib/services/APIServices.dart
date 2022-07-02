@@ -7,25 +7,26 @@ class APIServices
 {
   Stream<DatabaseEvent> rooms()
   {
+    
     final FirebaseDatabase db = FirebaseDatabase.instance;
-    return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").onValue.asBroadcastStream();
+    return db.ref(get_UID()).child("rooms").onValue.asBroadcastStream();
   }
 
    Stream<DatabaseEvent> roomDetails(String roomID)
   {
     final FirebaseDatabase db = FirebaseDatabase.instance;
-    return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child(roomID).onValue.asBroadcastStream();
+    return db.ref(get_UID()).child("rooms").child(roomID).onValue.asBroadcastStream();
   }
 
   Stream<DatabaseEvent> lights(String roomID)
   {
     final FirebaseDatabase db = FirebaseDatabase.instance;
-    return db.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child(roomID).child("lights").onValue.asBroadcastStream();
+    return db.ref(get_UID()).child("rooms").child(roomID).child("lights").onValue.asBroadcastStream();
   }
 
   Future toggleLight(String roomID, String lightID) async
   {
-    final DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child(roomID).child("lights").child(lightID);
+    final DatabaseReference  db = FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child("lights").child(lightID);
     final DatabaseEvent event = await db.once();
     final Map data = event.snapshot.value as Map;
     if(data['led_status'] == 1)
@@ -40,7 +41,10 @@ class APIServices
 
   Future addLight(String alias, String roomID) async
   {
-    final DatabaseReference  db = FirebaseDatabase.instance.ref("8HcAT87dasVTkdgBGc7qoUg8LY03").child("rooms").child(roomID).child("lights");
+    
+
+    final DatabaseReference  db = FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child("lights");
+    
     final DatabaseEvent event = await db.once();
     late Map data;
     final List exitsingRooms;
@@ -71,4 +75,15 @@ class APIServices
    
   }
   
+  Future setFeature(String feature, String value, String roomID) async{
+   final DatabaseReference db =  FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID);
+   await db.update({feature:value});
+  }
+
+  String get_UID(){
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+    return user!.uid;
+  }
+
 }

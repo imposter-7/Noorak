@@ -10,6 +10,7 @@ class Notifications extends StatefulWidget {
 
 class _Notifications extends State<Notifications> {
   String _selectedTime = "Pick your time ";
+  List selectedRooms =[];
   @override
   Widget build(BuildContext context) {
     Future<void> _openTimerPicker(BuildContext context) async {
@@ -83,9 +84,29 @@ class _Notifications extends State<Notifications> {
            try{
               final Map data = snapshot.data.snapshot.value;
               final List roomKeys = data.keys.toList();
-              return ListView(
-                // crossAxisCount: 2,
-                children: List.generate(roomKeys.length, (index) => Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(223, 215, 170, 149))),
+             return Column(
+                children: [
+                  Flexible(
+                    child: ListView(
+                      // crossAxisCount: 2,
+                      children: List.generate(roomKeys.length, (index) =>  Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(223, 215, 170, 149),
+                      onSelect:(){
+                        selectedRooms.contains(roomKeys[index])?selectedRooms.remove(roomKeys[index]):selectedRooms.add(roomKeys[index]);
+                        
+                      }
+                      )),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: (){
+                      for(String id in selectedRooms){
+                        apiServices.setFeature("scheduled-notifications",  _selectedTime.toString(), id);
+                      }
+                      
+                    }
+                  , child: Text("Set")
+                  )
+                ],
               );
           }
           catch(_) {

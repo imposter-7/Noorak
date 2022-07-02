@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lastversion/Home.dart';
 import 'package:lastversion/bottomnavbar.dart';
+import 'package:lastversion/main.dart';
 import 'package:lastversion/mainsignin.dart';
 import 'package:lastversion/screens/reset_password.dart';
 import 'package:lastversion/screens/reusable_widgets.dart';
@@ -299,10 +301,13 @@ class _Register extends State<Register> {
                        .createUserWithEmailAndPassword(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
-                      .then((value) {
+                      .then((value) async{
                         print("Created New Account");
-                         Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                        final DatabaseReference db =  FirebaseDatabase.instance.ref(apiServices.get_UID());
+                        await db.update({"alias":value.user!.email!.split('@').first});
+                         // ignore: use_build_context_synchronously
+                         Navigator.pop(context);
+                        
                          });
                             
                         }

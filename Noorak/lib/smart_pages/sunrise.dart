@@ -14,6 +14,7 @@ class Sunrise extends StatefulWidget {
 }
 
 class _SunriseState extends State<Sunrise> {
+  List selectedRooms =[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,27 +30,27 @@ class _SunriseState extends State<Sunrise> {
         
         children: [
           
-           const Padding(
-            padding: EdgeInsets.all(30.0),
-            child: Text(
-              "Turn off the switch at sunrise",
-              style: TextStyle(
+          //  const Padding(
+          //   padding: EdgeInsets.all(30.0),
+          //   child: Text(
+          //     "Turn off the switch at sunrise",
+          //     style: TextStyle(
                
-                  fontSize: 20,
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 30, top: 60, bottom: 50),
-            child: Text(
-              "Sunrise is at :  06:25am ",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
+          //         fontSize: 20,
+          //         color: Color.fromARGB(255, 255, 255, 255),
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // const Padding(
+          //   padding: EdgeInsets.only(left: 30, top: 60, bottom: 50),
+          //   child: Text(
+          //     "Sunrise is at :  5:35am ",
+          //     style: TextStyle(
+          //         fontSize: 20,
+          //         color: Colors.grey,
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
           
         StreamBuilder(
           
@@ -67,10 +68,59 @@ class _SunriseState extends State<Sunrise> {
            try{
               final Map data = snapshot.data.snapshot.value;
               final List roomKeys = data.keys.toList();
-              return GridView.count(
-                padding: EdgeInsets.symmetric(vertical: 150,horizontal: 20),
-                crossAxisCount: 2,
-                children: List.generate(roomKeys.length, (index) => Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(206, 168, 209, 255),)),
+              // return GridView.count(
+              //   padding: EdgeInsets.symmetric(vertical: 150,horizontal: 20),
+              //   crossAxisCount: 2,
+              //   children: List.generate(roomKeys.length, (index) => Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(206, 168, 209, 255),onSelect: (){})),
+              // );
+              return Column(
+                children: [
+                  
+             const Padding(
+               padding: EdgeInsets.only(left: 10,top: 10),
+               child: Text(
+                
+                "Turn off the switch at sunrise",
+                
+                style: TextStyle(
+                  
+                    fontSize: 20,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontWeight: FontWeight.bold),
+            ),
+             ),
+         
+       
+             const Text(
+              "Sunrise is at :  5:35 am ",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold),
+            ),
+          
+                  Flexible(
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      children: List.generate(roomKeys.length, (index) =>  Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(206, 168, 209, 255),
+                      onSelect:(){
+                        selectedRooms.contains(roomKeys[index])?selectedRooms.remove(roomKeys[index]):selectedRooms.add(roomKeys[index]);
+                        
+                      }
+                      )),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: (){
+                      for(String id in selectedRooms){
+                        apiServices.setFeature("sunrise",  "5:35am", id);
+                      }
+                      
+                    }
+                  , child: Text("Set")
+                  ),
+                  
+                ],
               );
           }
       
@@ -106,32 +156,32 @@ class _SunriseState extends State<Sunrise> {
           }
         },
       ),
-       Center(
-        child: ElevatedButton(
-                      onPressed: () {
-                           Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SmartPage()));
-                      },
-                      // ignore: sort_child_properties_last
-                      child: Text("Add Lights ",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blueAccent,
-                          padding: EdgeInsets.symmetric(horizontal:50),
-                          shape: RoundedRectangleBorder(
+      //  Center(
+      //   child: ElevatedButton(
+      //                 onPressed: () {
+      //                      Navigator.of(context).push(
+      //                 MaterialPageRoute(builder: (context) => SmartPage()));
+      //                 },
+      //                 // ignore: sort_child_properties_last
+      //                 child: Text("Add Lights ",
+      //                     style: TextStyle(
+      //                         fontSize: 20,
+      //                         fontWeight: FontWeight.bold,
+      //                         color: Colors.white)),
+      //                 style: ElevatedButton.styleFrom(
+      //                     primary: Colors.blueAccent,
+      //                     padding: EdgeInsets.symmetric(horizontal:50),
+      //                     shape: RoundedRectangleBorder(
                             
-                              borderRadius: BorderRadius.circular(20)
+      //                         borderRadius: BorderRadius.circular(20)
                               
                               
-                              ),
+      //                         ),
                               
                               
-                              ),
-                    ) ,
-      )
+      //                         ),
+      //               ) ,
+      // )
         ],
       ),
       //  bottomNavigationBar: MyBottomNavigationBar(),

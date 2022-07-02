@@ -10,6 +10,7 @@ class Poweroff extends StatefulWidget {
 
 class _Poweroff extends State<Poweroff> {
   String _selectedTime = "Pick your time ";
+  List selectedRooms =[];
   @override
   Widget build(BuildContext context) {
     Future<void> _openTimerPicker(BuildContext context) async {
@@ -83,9 +84,29 @@ class _Poweroff extends State<Poweroff> {
            try{
               final Map data = snapshot.data.snapshot.value;
               final List roomKeys = data.keys.toList();
-              return ListView(
-                // crossAxisCount: 2,
-                children: List.generate(roomKeys.length, (index) => Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(186, 232, 232, 232))),
+              return Column(
+                children: [
+                  Flexible(
+                    child: ListView(
+                      // crossAxisCount: 2,
+                      children: List.generate(roomKeys.length, (index) =>  Rooms(image: "3596801", title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(186, 232, 232, 232),
+                      onSelect:(){
+                        selectedRooms.contains(roomKeys[index])?selectedRooms.remove(roomKeys[index]):selectedRooms.add(roomKeys[index]);
+                        
+                      }
+                      )),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: (){
+                      for(String id in selectedRooms){
+                        apiServices.setFeature("power-off",  _selectedTime.toString(), id);
+                      }
+                      
+                    }
+                  , child: Text("Set")
+                  )
+                ],
               );
           }
           catch(_) {
