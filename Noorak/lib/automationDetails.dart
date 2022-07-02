@@ -32,19 +32,48 @@ class _AutoDetails extends State<AutoDetails> {
           return Center(child: CircularProgressIndicator(color: Colors.white,),);
         }
 
+        Map detailsData=<String,String>{ };
         try
         {
           final Map data = snapshot.data.snapshot.value;
           final List keys = data.keys.toList();
+         
+          if(keys.contains("power-on")){
+             detailsData["Power-on"] = data[keys[keys.indexOf('power-on')]].toString();
+          }
+          if(keys.contains("power-off")){
+             detailsData["Power-off"] = data[keys[keys.indexOf('power-off')]].toString();
+          }
+          if(keys.contains("scheduled-notifications")){
+             detailsData["scheduled-notifications"] = data[keys[keys.indexOf('scheduled-notifications')]].toString();
+          }
+           if(keys.contains("sunrise")){
+             detailsData["sunrise"] = data[keys[keys.indexOf('sunrise')]].toString();
+          }
+           if(keys.contains("sunset")){
+             detailsData["sunset"] = data[keys[keys.indexOf('sunset')]].toString();
+          }
+
+            if(detailsData.length==0){
+          return Center(child: Text("No automation details yet..",
+                    textAlign:TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                    ),
+                    );
+          }
+
           
-          Map detailsData
-           =<String,String>{
-            "Power-off": data[keys[keys.indexOf('power-off')]].toString(),
-            "Power-on": data[keys[keys.indexOf('power-on')]].toString(),
-            "Scheduled notifications": data[keys[keys.indexOf('scheduled-notifications')]].toString(),
-            "Sunrise": data[keys[keys.indexOf('sunrise')]].toString(),
-            "Sunset": data[keys[keys.indexOf('sunset')]].toString(),
-          };
+
+           
+              // {"Power-off": data[keys[keys.indexOf('power-off')]].toString();
+            // "Power-on": data[keys[keys.indexOf('power-on')]].toString(),
+            // "Scheduled notifications": data[keys[keys.indexOf('scheduled-notifications')]].toString(),
+            // "Sunrise": data[keys[keys.indexOf('sunrise')]].toString(),
+            // "Sunset": data[keys[keys.indexOf('sunset')]].toString(),
+          // };
           
          final List detailsKeys = detailsData.keys.toList();
 
@@ -125,13 +154,17 @@ class _AutoDetails extends State<AutoDetails> {
         }
         catch(_)
         {
+          
           return Center(child: Text("No lights yet...",
-          textAlign:TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 10,
-          ),
-          ),);
+                    textAlign:TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    ),
+                    );
+          
+         
         }
 
         
