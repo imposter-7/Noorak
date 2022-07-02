@@ -86,4 +86,8 @@ class APIServices
     return user!.uid;
   }
 
+  void removeFeature(String roomID, String feature) async{
+   await FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child(feature).remove();
+  }
+
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lastversion/main.dart';
 import 'package:lastversion/screens/reusable_widgets.dart';
 
@@ -109,11 +110,19 @@ class _AutoDetails extends State<AutoDetails> {
                           borderRadius: BorderRadius.circular(20),
                           color: Color.fromARGB(255, 240, 28, 13),
                         ),
-                        child: Icon(
+                        child: 
+                        IconButton(
+                          icon:  Icon(
                           Icons.delete,
                           size: 40,
                           color: Colors.white,
                         ),
+                        onPressed: (){
+                          print(detailsKeys[index].toString().toLowerCase());
+                          apiServices.removeFeature(widget.roomID, detailsKeys[index].toString().toLowerCase());
+                        }
+                        )
+                      
                       ),
                   
                 
