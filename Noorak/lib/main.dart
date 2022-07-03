@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:lastversion/Home.dart';
 import 'package:lastversion/Smart.dart';
 import 'package:lastversion/mainpage.dart';
+import 'package:lastversion/notifications/notification_api.dart';
+import 'package:lastversion/profile.dart';
 import 'package:lastversion/realtime_db.dart';
 import 'package:lastversion/roomdetails.dart';
+import 'package:lastversion/notifications/notifications.dart';
 import 'package:lastversion/services/APIServices.dart';
 import 'package:lastversion/smart_pages/poweron.dart';
 import 'package:lastversion/smart_pages/sunset.dart';
@@ -28,8 +31,9 @@ Future<void> main() async {
   runApp(MaterialApp(
 
     // home: realtime_db(),
-    home: MainPage(),
-    // home: AutoDetails(),
+    // home: MainPage(),
+    // home: MainScreen(),
+    home: Profile(),
   ));
 }
 

@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:lastversion/notifications/notification_api.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -13,8 +17,34 @@ class Profile extends StatefulWidget {
 class _Profile extends State<Profile> {
   bool ispassword = true;
   var _switchValue = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    tz.initializeTimeZones();
+  }
+  
+
+  Future<int> getTime() async{
+  final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1');
+      final DatabaseEvent event = await db.once();
+    final Map data = event.snapshot.value as Map;
+    return data['scheduled-notifications'];
+  }
+
+  Future<int> get_ledStatus() async{
+    final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1').child("lights").child("562bcd60-fa58-11ec-bcfd-6d8041811005");
+    final DatabaseEvent event = await db.once();
+    final Map data = event.snapshot.value as Map;
+    // print(data['led_status']);
+    return data['led_status'];
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -131,6 +161,8 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                   ),
+                  // GestureDetector(
+                  //   child:
                   Padding(
                     padding: EdgeInsets.only(top: 100),
                     child: Container(
@@ -142,6 +174,14 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                   ),
+                  // onTap: () async{
+                  //     int seconds = await getTime() ;
+                  //     print(seconds);
+                  //     print("hahaha");
+                  //     NotificationService().showNotification(1, "NOORAK",
+                  //     "Warning: Lights are on !  ",2  );
+                  // },
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: 115,
@@ -154,10 +194,22 @@ class _Profile extends State<Profile> {
                       toggleSize: 45.0,
                       value: _switchValue,
                       borderRadius: 30.0,
-                      onToggle: (value) {
-                        setState(() {
-                          _switchValue = value;
-                        });
+                      onToggle: (value) async{
+                            int seconds = await getTime() ;
+                            // print(seconds);
+                            // print("hahaha");
+                            int led_status = await get_ledStatus();
+                            print(led_status);
+                            if(value == true && led_status ==1 )
+                           {
+                            
+                             NotificationService().showNotification(1, "NOORAK",
+                            "Warning: Lights are on !  ",2  );
+                           }
+                        
+                              setState(() {
+                                _switchValue = value;
+                              });
                       },
                     ),
                   ),

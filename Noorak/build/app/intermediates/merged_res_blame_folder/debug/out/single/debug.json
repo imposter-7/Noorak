@@ -1,5 +1,17 @@
 [
     {
+        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\drawable-hdpi_light_flutter.png.flat",
+        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\drawable-hdpi\\light_flutter.png"
+    },
+    {
+        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\drawable-mdpi_light_flutter.png.flat",
+        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\drawable-mdpi\\light_flutter.png"
+    },
+    {
+        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
@@ -16,15 +28,23 @@
         "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\drawable-xxhdpi_light_flutter.png.flat",
+        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\drawable-xxhdpi\\light_flutter.png"
+    },
+    {
         "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\mipmap-hdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\drawable-xhdpi_light_flutter.png.flat",
+        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\drawable-xhdpi\\light_flutter.png"
     },
     {
         "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+        "merged": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\build\\app\\intermediates\\merged_res\\debug\\drawable-xxxhdpi_light_flutter.png.flat",
+        "source": "C:\\Users\\halaf\\OneDrive\\Desktop\\Implementation\\Noorak\\Noorak\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\light_flutter.png"
     }
 ]
