@@ -143,11 +143,11 @@ class Room extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _RoomState();
 }
-  bool _switchValue = false;
+  
 
 class _RoomState extends State<Room> {
 
-
+bool _switchValue = false;
   @override
   void dispose() {
     super.dispose();
