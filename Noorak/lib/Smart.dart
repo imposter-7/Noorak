@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lastversion/bottomnavbar.dart';
-import 'package:lastversion/profile.dart';
+// import 'package:lastversion/bottomnavbar.dart';
+// import 'package:lastversion/profile.dart';
 import 'package:lastversion/smart_pages/poweroff.dart';
 import 'package:lastversion/smart_pages/poweron.dart';
 import 'package:lastversion/smart_pages/schedulenotification.dart';
@@ -32,7 +32,7 @@ class _SmartPageState extends State<SmartPage> {
         height: 700.0,
         child: Stack(
           children: [
-            Padding(
+          const  Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: Text(
                 'Automation',
@@ -45,7 +45,7 @@ class _SmartPageState extends State<SmartPage> {
             ),
         GestureDetector(
           child:  Padding(
-              padding: EdgeInsets.only(top: 50),
+              padding:const EdgeInsets.only(top: 50),
               child: Container(
                 width: 400,
                 height: 100,
@@ -62,17 +62,17 @@ class _SmartPageState extends State<SmartPage> {
               );
             },
         ),
-            Padding(
+           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 55),
               child: Text(
-                'Schedulaed Power-On',
+                'Scheduled Power-On',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 350, vertical: 55),
               child: Icon(
                 Icons.timer,
@@ -84,13 +84,13 @@ class _SmartPageState extends State<SmartPage> {
             //
          GestureDetector(
            child: Padding(
-              padding: EdgeInsets.only(top: 170),
+              padding: const EdgeInsets.only(top: 170),
               child: Container(
                 width: 400,
                 height: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Color.fromARGB(232, 105, 184, 240),
+                  color:const Color.fromARGB(232, 105, 184, 240),
                 ),
               ),
             ),
@@ -101,7 +101,7 @@ class _SmartPageState extends State<SmartPage> {
               );
             },
          ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 180),
               child: Text(
                 'Turn off the switch at sunrise ',
@@ -111,7 +111,7 @@ class _SmartPageState extends State<SmartPage> {
                     color: Colors.white),
               ),
             ),
-            Padding(
+          const  Padding(
               padding: EdgeInsets.symmetric(horizontal: 350, vertical: 180),
               child: Icon(
                 Icons.brightness_low,
@@ -124,13 +124,13 @@ class _SmartPageState extends State<SmartPage> {
           GestureDetector(
             child :
             Padding(
-              padding: EdgeInsets.only(top: 290),
+              padding:const EdgeInsets.only(top: 290),
               child: Container(
                 width: 400,
                 height: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Color.fromARGB(218, 140, 218, 178),
+                  color: const Color.fromARGB(218, 140, 218, 178),
                 ),
               ),
             ),
@@ -144,8 +144,8 @@ class _SmartPageState extends State<SmartPage> {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 300, left: 20),
-                  child: Text(
+                  padding: const EdgeInsets.only(top: 300, left: 20),
+                  child: const Text(
                     'Turn on the switch at sunset ',
                     style: TextStyle(
                         fontSize: 20,
@@ -156,7 +156,7 @@ class _SmartPageState extends State<SmartPage> {
               ],
             ),
 
-            Padding(
+           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 350, vertical: 300),
               child: Icon(
                 Icons.brightness_medium_outlined,
@@ -190,8 +190,8 @@ class _SmartPageState extends State<SmartPage> {
               children: [
                 Container(
                   padding: EdgeInsets.only(top: 420, left: 20),
-                  child: Text(
-                    'Schdule notificatios ',
+                  child: const Text(
+                    'Scheduled Notifications ',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -210,7 +210,7 @@ class _SmartPageState extends State<SmartPage> {
                     color: Colors.white),
               ),
             ), */
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 350, vertical: 420),
               child: Icon(
                 Icons.timer,
@@ -242,17 +242,17 @@ class _SmartPageState extends State<SmartPage> {
               );
             },
           ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 20, top: 540),
               child: Text(
-                'Schedulaed Power-off',
+                'Scheduled Power-off',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 350, top: 540),
               child: Icon(
                 Icons.timer,
