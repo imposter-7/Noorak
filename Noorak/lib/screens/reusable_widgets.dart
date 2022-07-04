@@ -101,7 +101,8 @@ class _RoomsState extends State<Rooms> {
       onTap: () {
         setState(() {
           selected = !selected;
-         });
+          
+        });
 
         widget.onSelect();
 
@@ -152,4 +153,98 @@ class _RoomsState extends State<Rooms> {
     )
     );
   }
+ 
+}
+
+
+class clickableRooms extends StatefulWidget {
+  final String title;
+  // final VoidCallback onToggle;
+  final Color roomColor;
+  final VoidCallback onSelect;
+  
+
+  const clickableRooms({
+    key,
+    required this.title,
+    // required this.onToggle,
+    required this.roomColor,
+    required this.onSelect
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _clickableRooms();
+}
+
+class _clickableRooms extends State<Rooms> {
+ bool selected = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+ 
+
+  @override
+  Widget build(BuildContext context) {
+    return
+    GestureDetector( 
+      onTap: () {
+        setState(() {
+          selected = !selected;
+          
+        });
+
+        widget.onSelect();
+
+      },
+    child: 
+    Container(
+      width: double.infinity,
+      height: 20.0,
+      child: Stack(
+        children: [
+          const SizedBox(
+            height: 10.0,
+          ),
+           
+            //  Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(15),
+            //     child: Image(
+            //       image: AssetImage("images/${widget.image}.png"),
+            //       fit: BoxFit.cover,
+            //       color: selected?Colors.blue:widget.roomColor,
+            //       colorBlendMode: BlendMode.darken,
+            //       height: 120,
+            //       width: double.infinity,
+            //     ),
+            //   ),
+            // ),
+           
+         
+      
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Text(
+              widget.title.toString().toUpperCase(),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+                  
+            ),
+            
+          ),
+        
+        ],
+      ),
+    )
+    );
+  }
+
+  
 }

@@ -33,9 +33,9 @@ Future<void> main() async {
   runApp(MaterialApp(
 
     // home: realtime_db(),
-    // home: MainPage(),
-    // home: MainScreen(),
-    home: Profile(),
+    home: MainPage(),
+    
+    // home: Profile(),
   ));
 }
 

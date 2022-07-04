@@ -4,7 +4,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:lastversion/main.dart';
 import 'package:lastversion/notifications/notification_api.dart';
+import 'package:lastversion/screens/reusable_widgets.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -25,6 +27,7 @@ class Profile extends StatefulWidget {
 
 class _Profile extends  State<Profile> {
   bool ispassword = true;
+  List selectedRooms =[];
  
 
   @override
@@ -34,6 +37,108 @@ class _Profile extends  State<Profile> {
     tz.initializeTimeZones();
   }
   
+   Future<String?> openDialog() {
+    final TextEditingController controller = TextEditingController();
+
+    return showDialog<String>(
+    
+    context: context, 
+    builder: (context)=> AlertDialog(
+      title: Text("New Light"),
+      // content: TextField(
+      //   autofocus: true,
+      //   decoration: InputDecoration(hintText: 'Enter your light alias '),
+      //   controller: controller,
+     content: Flexible(
+        child: Padding(padding: EdgeInsets.only(left: 10, top: 150),
+        child:  StreamBuilder(
+        stream: apiServices.rooms(),
+        builder: (BuildContext context, AsyncSnapshot snapshot)
+        {
+          if(!snapshot.hasData)
+          {
+            return const Center(child: CircularProgressIndicator(),);
+          }
+          // final Map data = snapshot.data.snapshot.value;
+          
+           try{
+              final Map data = snapshot.data.snapshot.value;
+              final List roomKeys = data.keys.toList();
+              return Column(
+                children: [
+                  Flexible(
+                    child: ListView(
+                      // crossAxisCount: 2,
+                      children: List.generate(roomKeys.length, (index) =>  clickableRooms( title: data[roomKeys[index]]['alias'], roomColor: Color.fromARGB(186, 232, 232, 232),
+                      onSelect:(){
+                        selectedRooms.contains(roomKeys[index])?selectedRooms.remove(roomKeys[index]):selectedRooms.add(roomKeys[index]);
+                        
+                      }
+                      )),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: (){
+                      // for(String id in selectedRooms){
+                      //   apiServices.setFeature("power-off",  _selectedTime.toString(), id);
+                      // }
+                      
+                    }
+                  , child: Text("Set")
+                  )
+                ],
+              );
+          }
+          catch(_) {
+              return ListView(
+        children: const [
+          SizedBox(
+            height: 120,
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 150,horizontal: 150),
+          child: Icon(
+                Icons.meeting_room_sharp,
+                color: Colors.white,
+                size: 100,
+              ),
+          
+          ),
+          SizedBox(height: 10,),
+          Padding(padding: EdgeInsets.symmetric(vertical: 250,horizontal:160 ),
+          child :Text("No rooms yet...",
+          textAlign:TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+          ),
+          )
+          ),
+          SizedBox(height: 10,),
+  
+        ],
+      );
+
+          }
+        },
+      ),
+        ),
+      ),
+
+      actions: [
+        TextButton(
+          onPressed: () {
+                        // ignore: unnecessary_null_comparison
+                        // if(controller.text == null || controller.text.isEmpty) return;
+                        // apiServices.addLight(controller.text, widget.roomID);
+                        // Navigator.of(context).pop();
+          },
+          child: Text('Submit'))
+      ],
+      
+      
+    )
+    );
+  }
 
   Future<int> getTime() async{
   final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1');
@@ -281,17 +386,23 @@ class _Profile extends  State<Profile> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 20,
-                      top: 113,
-                    ),
-                    child: Text(
-                      'Turn on Notifications',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: (){
+                      print("tapped");
+                      openDialog();
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 20,
+                        top: 113,
+                      ),
+                      child: Text(
+                        'Turn on Notifications',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

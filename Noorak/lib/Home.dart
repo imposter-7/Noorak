@@ -11,7 +11,49 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() => _HomePageState();
 }
 
+
+// Future<int> 
+  void get_lights(DatabaseReference db, int status) async{
+      final DatabaseEvent event = await db.once();
+    final Map data = event.snapshot.value as Map;
+    final List lights  = data.keys.toList();
+    for(String light_id in lights){
+      // print(data[light_id]['led_status']);
+      await db.child(light_id).update({'led_status': status});
+    }
+    
+  }
+
+// this function tracks all rooms to set the home switch_value on/off
+  // Future<void> rooms_listener (DatabaseReference db) async {
+  //     //   // final DatabaseReference  db = FirebaseDatabase.instance.ref(apiServices.get_UID()).child("rooms");
+  //     //    final DatabaseEvent event = await db.once();
+  //     // db.onValue.listen((event) async {
+  //     //   final Map data = event.snapshot.value as Map;
+  //     //   print(data);
+  //     //   if(_switchValue)
+  //     // });
+  //       final DatabaseEvent event = await db.once();
+  //       final Map data = event.snapshot.value as Map;
+  //       final List lights  = data.keys.toList();
+  //       for(String light_id in lights){
+  //         // print(data[light_id]['led_status']);
+  //         // await db.child(light_id).update({'led_status': status});
+  //         if(data[light_id]['led_status'] == 1)
+  //           _switchValue =true;
+  //       }
+  // }
+
 class _HomePageState extends State<HomePage> {
+
+
+
+@override
+  void initState(){
+  super.initState();
+  
+}
+
   @override
   void dispose() {
     super.dispose();
@@ -101,9 +143,10 @@ class Room extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _RoomState();
 }
+  bool _switchValue = false;
 
 class _RoomState extends State<Room> {
-  bool _switchValue = false;
+
 
   @override
   void dispose() {
@@ -161,6 +204,17 @@ class _RoomState extends State<Room> {
               value: _switchValue,
               borderRadius: 30.0,
               onToggle: (value) {
+              final DatabaseReference db = FirebaseDatabase.instance.ref(apiServices.get_UID()).child("rooms").child(widget.roomID).child("lights");
+
+                if(value == true){
+                    get_lights(db,1);
+                      
+                    // rooms_listener(db);
+                }
+
+                else{
+                  get_lights(db,0);
+                }
                 setState(() {
                   _switchValue = value;
                 });
