@@ -86,6 +86,21 @@ class APIServices
     return user!.uid;
   }
 
+   String? get_email(){
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+    return user!.email;
+  }
+
+  Future<String> get_Username() async {
+      final DatabaseReference db =  FirebaseDatabase.instance.ref(get_UID());
+      final DatabaseEvent event = await db.once();
+      final Map data = event.snapshot.value as Map;
+      print(data['alias']);
+      String username = data['alias'].toString();
+      return username;
+  }
+
   void removeFeature(String roomID, String feature) async{
    await FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child(feature).remove();
   }

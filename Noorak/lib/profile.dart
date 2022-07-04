@@ -269,7 +269,9 @@ class _Profile extends  State<Profile> {
                       top: 150,
                     ),
                     child: Text(
-                      "The name ",
+                      // "The name ",
+                      apiServices.get_Username().toString(),
+                    
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -286,11 +288,12 @@ class _Profile extends  State<Profile> {
                       top: 190,
                     ),
                     child: Text(
-                      " Email@gmail.com",
+                      // " Email@gmail.com",
+                      apiServices.get_email().toString(),
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w100,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                       ),
                     ),
@@ -304,21 +307,21 @@ class _Profile extends  State<Profile> {
               //SizedBox(height: 30),
               Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, left: 118),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))),
-                      child: Text("Edit Profile",
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2,
-                              color: Colors.white)),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.only(top: 10, left: 118),
+                  //   child: ElevatedButton(
+                  //     onPressed: () {},
+                  //     style: ElevatedButton.styleFrom(
+                  //         primary: Colors.orange,
+                  //         shape: RoundedRectangleBorder(
+                  //             borderRadius: BorderRadius.circular(20))),
+                  //     child: Text("Edit Profile",
+                  //         style: TextStyle(
+                  //             fontSize: 15,
+                  //             letterSpacing: 2,
+                  //             color: Colors.white)),
+                  //   ),
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(
                       left: 20,
