@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:lastversion/Smart.dart';
-import 'package:lastversion/bottomnavbar.dart';
+// import 'package:lastversion/Smart.dart';
+// import 'package:lastversion/bottomnavbar.dart';
 import 'package:lastversion/screens/reusable_widgets.dart';
 // import 'package:lastversion/Home.dart';
 
@@ -17,6 +17,38 @@ class SunSet extends StatefulWidget {
 
 class _SunSet extends State<SunSet> {
   List selectedRooms =[];
+
+  Future<String?> openDialog() {
+
+    return showDialog<String>(
+    
+    context: context, 
+    builder: (context)=> AlertDialog(
+      title: Center(child: Text("Feature is added successfully!")),
+      // content: TextField(
+      //   autofocus: true,
+      //   decoration: InputDecoration(hintText: 'Enter your light alias '),
+      //   controller: controller,
+      // ),
+
+      actions: [
+        TextButton(
+          onPressed: () {
+                        // ignore: unnecessary_null_comparison
+                        
+                        // apiServices.addLight(controller.text, widget.roomID);
+                        Navigator.of(context).pop();
+          },
+          child: Text('Ok'))
+      ],
+      
+      
+    )
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +145,7 @@ class _SunSet extends State<SunSet> {
                       for(String id in selectedRooms){
                         apiServices.setFeature("sunset",  "7:46pm", id);
                       }
-                      
+                      openDialog();
                     }
                   , child: Text("Set")
                   ),

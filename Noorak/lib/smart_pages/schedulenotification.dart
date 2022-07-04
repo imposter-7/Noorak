@@ -11,6 +11,38 @@ class Notifications extends StatefulWidget {
 class _Notifications extends State<Notifications> {
   String _selectedTime = "Pick your time ";
   List selectedRooms =[];
+
+Future<String?> openDialog() {
+
+    return showDialog<String>(
+    
+    context: context, 
+    builder: (context)=> AlertDialog(
+      title: Center(child: Text("Feature is added successfully!")),
+      // content: TextField(
+      //   autofocus: true,
+      //   decoration: InputDecoration(hintText: 'Enter your light alias '),
+      //   controller: controller,
+      // ),
+
+      actions: [
+        TextButton(
+          onPressed: () {
+                        // ignore: unnecessary_null_comparison
+                        
+                        // apiServices.addLight(controller.text, widget.roomID);
+                        Navigator.of(context).pop();
+          },
+          child: Text('Ok'))
+      ],
+      
+      
+    )
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     Future<void> _openTimerPicker(BuildContext context) async {
@@ -102,9 +134,10 @@ class _Notifications extends State<Notifications> {
                       for(String id in selectedRooms){
                         apiServices.setFeature("scheduled-notifications",  _selectedTime.toString(), id);
                       }
-                      
+                      openDialog();
                     }
                   , child: Text("Set")
+                  
                   )
                 ],
               );
