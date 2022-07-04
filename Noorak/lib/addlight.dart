@@ -58,6 +58,39 @@ class _AddLight extends State<AddLight> {
     );
   }
 
+  ///////////////
+  ///
+  ///
+  ///
+   Future<String?> edit_alias_openDialog(String lightID) {
+    final TextEditingController controller = TextEditingController();
+
+    return showDialog<String>(
+    
+    context: context, 
+    builder: (context)=> AlertDialog(
+      title: Text("Edit Light Name"),
+      content: TextField(
+        autofocus: true,
+        decoration: InputDecoration(hintText: 'Enter new light name '),
+        controller: controller,
+      ),
+
+      actions: [
+        TextButton(
+          onPressed: () async {
+              if(controller.text == null || controller.text.isEmpty) return;
+              await FirebaseDatabase.instance.ref(apiServices.get_UID()).child("rooms").child(widget.roomID).child("lights").child(lightID).update({"alias":controller.text});
+              Navigator.of(context).pop();
+          },
+          child: Text('Submit'))
+      ],
+      
+      
+    )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +133,14 @@ class _AddLight extends State<AddLight> {
                   // print(lightKeys[index]),
                    apiServices.removeLight(widget.roomID, lightKeys[index].toString().toLowerCase()),
                     icon:  Icon(Icons.delete_sharp,size:30,color: Color.fromARGB(255, 190, 59, 59),)
+              ),
+              IconButton(
+                  onPressed:()async=>
+                  // print(lightKeys[index]),
+                  //  apiServices.removeLight(widget.roomID, lightKeys[index].toString().toLowerCase()),
+                  edit_alias_openDialog(lightKeys[index].toString().toLowerCase()),
+
+                    icon:  Icon(Icons.edit,size:30,color: Color.fromARGB(255, 131, 126, 126),)
               )
                 ],
               )

@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
     }
     
   }
+  
 
 // this function tracks all rooms to set the home switch_value on/off
   // Future<void> rooms_listener (DatabaseReference db) async {
