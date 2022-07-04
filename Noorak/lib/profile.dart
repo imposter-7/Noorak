@@ -2,10 +2,13 @@
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lastversion/notifications/notification_api.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+
+import 'timer/test.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -14,9 +17,15 @@ class Profile extends StatefulWidget {
   _Profile createState() => _Profile();
 }
 
-class _Profile extends State<Profile> {
+ var _switchValue = false;
+  // bool isPlaying = false;
+  // int endTime;
+//  = DateTime.now().millisecondsSinceEpoch + 1000 * 5;
+
+
+class _Profile extends  State<Profile> {
   bool ispassword = true;
-  var _switchValue = false;
+ 
 
   @override
   void initState() {
@@ -42,17 +51,71 @@ class _Profile extends State<Profile> {
   }
 
 
+/* this function is listening to a hard-coded light continously-
+    once the led status is changed, it checks if the notification switch
+    is switched on. If the light is switched on and the notifications 
+    switch is switched on, a notification is sent.
+
+    Next step: find a way to calculate that the light is switched on 
+    till the time that is set in the database. Once the light reached the 
+    specific time, a notification must be sent directly
+*/
+   void listening_to_LEDstatus (){
+     final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1').child("lights").child("562bcd60-fa58-11ec-bcfd-6d8041811005");
+      db.onValue.listen((event) async {
+        final Map data = event.snapshot.value as Map;
+    if(data['led_status']==1 && _switchValue == true){
+          
+              print(data['led_status']);
+              print(_switchValue.toString());
+              int secondss = await getTime() ;
+              int led_status = await get_ledStatus();
+
+              // This executes the code after the given time
+              Future.delayed(
+              Duration(seconds: secondss),
+               (){
+                    NotificationService().showNotification(1, "NOORAK",
+                    "Warning: some lights are switched on!  ", 1  );
+                    
+                    print("A notification is sent after"+secondss.toString());
+                 
+                 }
+               );
+          
+                           
+     }
+        
+
+      }
+      );
+
+    
+
+  }
+
+    
+
+
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
+    listening_to_LEDstatus();
+  //  Future.delayed(
+  //             Duration(seconds: 5),
+  //              (){ print("Executed after 5 seconds"); }
+  //              );
+    return
+     Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text('Profile'),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Container(
+      body: 
+      
+      Container(
         padding: EdgeInsets.only(left: 15, top: 20, right: 15),
         child: GestureDetector(
           onTap: () {
@@ -109,6 +172,10 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                   ),
+                  // CountdownTimer(
+                  //   endTime: endTime,
+                  //   onEnd: onEnd,
+                  //   ),
                   Container(
                     padding: EdgeInsets.only(
                       top: 190,
@@ -199,13 +266,14 @@ class _Profile extends State<Profile> {
                             // print(seconds);
                             // print("hahaha");
                             int led_status = await get_ledStatus();
-                            print(led_status);
-                            if(value == true && led_status ==1 )
-                           {
+                            // print(led_status);
+
+                          //   if(value == true && led_status ==1 )
+                          //  {
                             
-                             NotificationService().showNotification(1, "NOORAK",
-                            "Warning: Lights are on !  ",2  );
-                           }
+                          //    NotificationService().showNotification(1, "NOORAK",
+                          //   "Warning: Lights are on !  ",2  );
+                          //  }
                         
                               setState(() {
                                 _switchValue = value;

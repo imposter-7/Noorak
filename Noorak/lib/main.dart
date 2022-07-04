@@ -13,6 +13,8 @@ import 'package:lastversion/notifications/notifications.dart';
 import 'package:lastversion/services/APIServices.dart';
 import 'package:lastversion/smart_pages/poweron.dart';
 import 'package:lastversion/smart_pages/sunset.dart';
+import 'package:lastversion/timer/test.dart';
+import 'package:lastversion/timer/timer.dart';
 
 final APIServices apiServices = APIServices();
 

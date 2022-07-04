@@ -140,6 +140,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_countdown_timer",
+      "rootUri": "file:///D:/flutter_windows_2.5.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_countdown_timer-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///D:/flutter_windows_2.5.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1",
       "packageUri": "lib/",
@@ -350,7 +356,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-07-03T18:07:53.057226Z",
+  "generated": "2022-07-04T11:36:49.581823Z",
   "generator": "pub",
   "generatorVersion": "2.17.5"
 }
