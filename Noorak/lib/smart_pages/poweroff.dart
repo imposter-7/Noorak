@@ -137,7 +137,10 @@ Future<String?> openDialog() {
                         apiServices.setFeature("power-off",  _selectedTime.toString(), id);
                       }
 
-                      openDialog();
+                      if(selectedRooms.isNotEmpty)
+                         {
+                          openDialog();
+                         }
                       
                     }
                   , child: Text("Set")

@@ -145,9 +145,12 @@ Future<String?> openDialog() {
                   ElevatedButton(
                     onPressed: (){
                       for(String id in selectedRooms){
-                        apiServices.setFeature("sunrise",  "5:35am", id);
+                        apiServices.setSunsFeature("sunrise",  true, id);
                       }
-                      openDialog();
+                      if(selectedRooms.isNotEmpty)
+                         {
+                          openDialog();
+                         }
                     }
                   , child: Text("Set")
                   ),

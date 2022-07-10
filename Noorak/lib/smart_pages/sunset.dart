@@ -122,7 +122,7 @@ class _SunSet extends State<SunSet> {
          
        
              const Text(
-              "Sunrise is at :  7:46 pm ",
+              "Sunset is at :  7:46 PM ",
               style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -143,9 +143,12 @@ class _SunSet extends State<SunSet> {
                   ElevatedButton(
                     onPressed: (){
                       for(String id in selectedRooms){
-                        apiServices.setFeature("sunset",  "7:46pm", id);
+                        apiServices.setSunsFeature("sunset", true , id);
                       }
-                      openDialog();
+                      if(selectedRooms.isNotEmpty)
+                         {
+                          openDialog();
+                         }
                     }
                   , child: Text("Set")
                   ),

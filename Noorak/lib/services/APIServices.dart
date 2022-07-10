@@ -80,6 +80,11 @@ class APIServices
    await db.update({feature:value});
   }
 
+  Future setSunsFeature(String feature, bool value, String roomID) async{
+   final DatabaseReference db =  FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID);
+   await db.update({feature:value});
+  }
+
   String get_UID(){
     final FirebaseAuth auth = FirebaseAuth.instance;
     final user = auth.currentUser;
@@ -107,6 +112,17 @@ class APIServices
 
   void removeLight(String roomID, String lightID) async{
    await FirebaseDatabase.instance.ref(get_UID()).child("rooms").child(roomID).child("lights").child(lightID).remove();
+  }
+
+    Future<int> getPIRValue(String roomID) async {
+    final DatabaseReference db =  FirebaseDatabase.instance.ref("/VMTnWxaqxrQwVEPeViX53pWjRBH3/rooms/room1");
+    // ref(get_UID()).child("rooms").child(roomID);
+    final DatabaseEvent event = await db.once();
+    final Map data = event.snapshot.value as Map;
+    print(data['pir-sensor']);
+    int pirValue = data['pir-sensor'];
+
+    return pirValue;
   }
 
 }

@@ -49,10 +49,12 @@ class _AutoDetails extends State<AutoDetails> {
              detailsData["Scheduled-notifications"] = data[keys[keys.indexOf('scheduled-notifications')]].toString();
           }
            if(keys.contains("sunrise")){
-             detailsData["Sunrise"] = data[keys[keys.indexOf('sunrise')]].toString();
+             detailsData["Sunrise"] = "is set";
+            //  data[keys[keys.indexOf('sunrise')]].toString();
           }
            if(keys.contains("sunset")){
-             detailsData["Sunset"] = data[keys[keys.indexOf('sunset')]].toString();
+             detailsData["Sunset"] ="is set";
+              // data[keys[keys.indexOf('sunset')]].toString();
           }
 
             if(detailsData.isEmpty){

@@ -136,7 +136,10 @@ Future<String?> openDialog() {
                       for(String id in selectedRooms){
                         apiServices.setFeature("power-on",  _selectedTime.toString(), id);
                       }
-                      openDialog();
+                      if(selectedRooms.isNotEmpty)
+                         {
+                          openDialog();
+                         }
                     }
                   , child: Text("Set")
                   )

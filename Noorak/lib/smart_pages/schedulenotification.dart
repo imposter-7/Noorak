@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:lastversion/main.dart';
 import 'package:lastversion/screens/reusable_widgets.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class Notifications extends StatefulWidget {
   State<StatefulWidget> createState() => _Notifications();
@@ -11,6 +12,7 @@ class Notifications extends StatefulWidget {
 class _Notifications extends State<Notifications> {
   String _selectedTime = "Pick your time ";
   List selectedRooms =[];
+  int _currentValue = 3;
 
 Future<String?> openDialog() {
 
@@ -79,18 +81,35 @@ Future<String?> openDialog() {
                   fontWeight: FontWeight.bold),
             ),
           ),
+      
+   Padding(
+      padding: EdgeInsets.symmetric(horizontal: 50,vertical: 50),
+      child: NumberPicker(
+          value: _currentValue,
+          minValue: 0,
+          maxValue: 100,
+          step: 10,
+          axis: Axis.horizontal,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Color.fromARGB(223, 215, 170, 149)),
+            
+          ),
+          onChanged: (value) => setState(() => _currentValue = value),
+        ),
+   ),
           // SizedBox(height: 100),
-          Padding(padding: EdgeInsets.only(top:50,left:160,right: 120),
-        child:  RawMaterialButton(
-              fillColor: Color.fromARGB(223, 215, 170, 149),
-              child: Text(
-                _selectedTime,
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                _openTimerPicker(context);
-              }),
-              ),
+      //  Padding(padding: EdgeInsets.only(top:50,left:160,right: 120),
+      //   child:  RawMaterialButton(
+      //         fillColor: Color.fromARGB(223, 215, 170, 149),
+      //         child: Text(
+      //           _selectedTime,
+      //           style: TextStyle(color: Colors.white),
+      //         ),
+      //         onPressed: () {
+      //           _openTimerPicker(context);
+      //         }),
+      //         ),
                 Padding(
             padding: EdgeInsets.only(left: 30, top: 110),
             child: Text(
@@ -132,9 +151,12 @@ Future<String?> openDialog() {
                   ElevatedButton(
                     onPressed: (){
                       for(String id in selectedRooms){
-                        apiServices.setFeature("scheduled-notifications",  _selectedTime.toString(), id);
+                        apiServices.setFeature("scheduled-notifications",  _currentValue.toString(), id);
                       }
-                      openDialog();
+                      if(selectedRooms.isNotEmpty)
+                         {
+                          openDialog();
+                         }
                     }
                   , child: Text("Set")
                   
