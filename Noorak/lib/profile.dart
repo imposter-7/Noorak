@@ -141,14 +141,14 @@ class _Profile extends  State<Profile> {
   }
 
   Future<int> getTime() async{
-  final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1');
+  final DatabaseReference  db = FirebaseDatabase.instance.ref("VMTnWxaqxrQwVEPeViX53pWjRBH3").child("rooms").child('room1');
       final DatabaseEvent event = await db.once();
     final Map data = event.snapshot.value as Map;
-    return data['scheduled-notifications'];
+    return int.parse(data['scheduled-notifications']);
   }
 
   Future<int> get_ledStatus() async{
-    final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1').child("lights").child("562bcd60-fa58-11ec-bcfd-6d8041811005");
+    final DatabaseReference  db = FirebaseDatabase.instance.ref("VMTnWxaqxrQwVEPeViX53pWjRBH3").child("rooms").child('room1').child("lights").child("light1");
     final DatabaseEvent event = await db.once();
     final Map data = event.snapshot.value as Map;
     // print(data['led_status']);
@@ -166,7 +166,7 @@ class _Profile extends  State<Profile> {
     specific time, a notification must be sent directly
 */
    void listening_to_LEDstatus (){
-     final DatabaseReference  db = FirebaseDatabase.instance.ref("2bp6lKoRrbN9C3Vva9OMIwllgXv2").child("rooms").child('room1').child("lights").child("562bcd60-fa58-11ec-bcfd-6d8041811005");
+     final DatabaseReference  db = FirebaseDatabase.instance.ref("VMTnWxaqxrQwVEPeViX53pWjRBH3").child("rooms").child('room1').child("lights").child("light1");
       db.onValue.listen((event) async {
         final Map data = event.snapshot.value as Map;
     if(data['led_status']==1 && _switchValue == true){
